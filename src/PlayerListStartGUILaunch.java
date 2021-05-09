@@ -1,8 +1,8 @@
 
 import javafx.application.Application;
 
-public class GuiTest {
+public class PlayerListStartGUILaunch {
     public static void main(String[] args) {
-        Application.launch(Main.class);
+        Application.launch(PlayerListStartGUI.class);
     }
 }

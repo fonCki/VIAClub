@@ -1,14 +1,36 @@
-public class Player {
-    private String name, lastName;
-    private int age, number;
-    private String position;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 
-    public Player(String name, String lastName, int age, int number, String position) {
+public class Player implements Serializable {
+    public SystemStatus systemStatus;
+    private int playerId;
+    private String name, lastName;
+    private LocalDate dateOfBirth;
+    private int number;
+    private HashSet<String> position;
+    private String status;
+
+    public Player(int playerId){
+        this.playerId = playerId;
+        systemStatus = new SystemStatus();
+    }
+
+    public Player(int playerId, String name, String lastName, LocalDate dateOfBirth, int number, HashSet<String> position, String status) {
+        this.systemStatus = new SystemStatus();
+        this.playerId = playerId;
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
         this.number = number;
         this.position = position;
+        this.status = status;
+    }
+
+
+    public int getPlayerId() {
+        return playerId;
     }
 
     public String getName() {
@@ -27,12 +49,12 @@ public class Player {
         this.lastName = lastName;
     }
 
-    public int getAge() {
-        return this.age;
+    public LocalDate getDateOfBirth() {
+        return this.dateOfBirth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public int getNumber() {
@@ -43,34 +65,54 @@ public class Player {
         this.number = number;
     }
 
-    public String getPosition() {
+    public HashSet<String> getPosition() {
         return this.position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(HashSet<String> position) {
         this.position = position;
+    }
+
+    public void setPosition(String position) {
+        if (this.position == null) {
+            this.position = new HashSet<String>(4);
+        }
+        this.position.add(position);
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Player----------------------------\n" +
+        return "Player System Status ("+ this.systemStatus.getStatus()+")---\n" +
+                "Player ID: " + playerId + "\n" +
                 "name: " + name + "\n" +
                 "lastName: " + lastName + "\n" +
-                "age: " + age + "\n" +
-                "number: " + number +
+                "date of birth: " + dateOfBirth + "\n" +
+                "number: " + number + "\n" +
                 "position: " + position + "\n" +
-                "----------------------------------";
+                "status: " + status + "\n" +
+                "----------------------------------\n";
     }
 
     public boolean equals(Object obj){
         if (!(obj instanceof Player)) {
             return false;
         } else {
-            return ((Player) obj).name == this.name &&
-                    ((Player) obj).lastName == this.lastName &&
-                    ((Player) obj).age == this.age &&
+            return  ((Player) obj).systemStatus.equals(systemStatus) &&
+                    ((Player) obj).playerId == playerId &&
+                    ((Player) obj).name.equals(name) &&
+                    ((Player) obj).lastName.equals(lastName) &&
+                    ((Player) obj).dateOfBirth.equals(dateOfBirth) &&
                     ((Player) obj).number == number &&
-                    ((Player) obj).position == position;
+                    ((Player) obj).position == position &&
+                    ((Player) obj).status.equals(status);
         }
     }
 }
