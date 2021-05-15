@@ -52,6 +52,7 @@ public class MatchListController {
         kind.setCellValueFactory(new PropertyValueFactory<Match, String>("kind"));
         updateTable();
         editButton.disableProperty().bind(Bindings.isEmpty(matchTable.getSelectionModel().getSelectedItems())); // Button is only available if a match is selected!!
+        deleteMatch.disableProperty().bind(Bindings.isEmpty(matchTable.getSelectionModel().getSelectedItems()));
     }
 
 
@@ -59,6 +60,7 @@ public class MatchListController {
 
 
     public void actionMatch(ActionEvent e) throws IOException {
+            String action = (e.getSource() == editButton) ? "edit" : "add";
             Stage secondStage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader();
             Pane root = fxmlLoader.load(getClass().getResource("match.fxml").openStream());
@@ -66,15 +68,16 @@ public class MatchListController {
             /// SHARING DATA ///
             if (e.getSource() == editButton ||  e.getSource() == addMatch) {
                 MatchController matchControl = fxmlLoader.getController();
-                matchControl.transferData(matchTable.getSelectionModel().getSelectedItem(), matchList); // Comparto si una esta seleccionada, y tambien el matchList
+                matchControl.transferData(matchTable.getSelectionModel().getSelectedItem(), matchList, action); // Comparto si una esta seleccionada, y tambien el matchList
             }
             //////////////////////
 
             secondStage.setTitle("VIA Club");
             secondStage.setScene(new Scene(root, 850, 855));
 
-            /*
+
             anchorPane.setDisable(true);
+            /*
             secondStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
@@ -84,7 +87,8 @@ public class MatchListController {
 */
 
             secondStage.showAndWait();
-
+            updateTable();
+            anchorPane.setDisable(false);
 
 
     }

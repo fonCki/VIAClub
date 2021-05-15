@@ -33,6 +33,10 @@ public class PlayerList implements Serializable {
         return null;
     }
 
+    public Player getPlayerByPlayerId(int playerId) {
+        return playersList.get(playerId);
+    }
+
     public ArrayList<Integer> getAvailableNumbers() {
         ArrayList<Integer> tempArray = new ArrayList<Integer>();
         for (int i=1; i < 100; i++) {

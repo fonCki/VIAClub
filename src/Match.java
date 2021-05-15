@@ -9,18 +9,19 @@ public class Match implements Serializable {
     private LocalDate date;
     private String place;
     private String kind;
-    private ArrayList<Player> playersPitch;
-    private ArrayList<Player> playersBench;
+    private ArrayList<Integer> playersPitch;
+    private ArrayList<Integer> playersBench;
+    private final int maxPlayersPitch = 11;
     private int maxPlayersBench;
-    private int players;
 
-    public Match() {
-
-    }
 
     public Match(String opponent, LocalDate date, String place, String kind) {
-        switch (kind) {
-            case "League" : {
+        this.opponent = opponent;
+        this.date = date;
+        this.place = place;
+        this.kind = kind;
+        switch (kind.toLowerCase()) {
+            case "league" : {
                 maxPlayersBench = 6;
                 break;
                 }
@@ -33,12 +34,9 @@ public class Match implements Serializable {
                 break;
             }
         };
-        this.opponent = opponent;
-        this.date = date;
-        this.place = place;
-        this.kind = kind;
-        this.playersPitch = new ArrayList<Player>(11);
-        this.playersBench = new ArrayList<Player>(maxPlayersBench);
+        playersPitch = new ArrayList<Integer>(maxPlayersPitch);
+        playersBench = new ArrayList<Integer>(maxPlayersBench);
+
     }
 
     public String getOpponent() {
@@ -73,26 +71,21 @@ public class Match implements Serializable {
         this.kind = kind;
     }
 
-    public ArrayList<Player> getPlayersPitch() {
+    public ArrayList<Integer> getPlayersPitch() {
         return playersPitch;
     }
 
-    public void setPlayersPitch(ArrayList<Player> players) {
-        this.playersPitch = players;
+    public void setPlayersPitch(ArrayList<Integer> playersPitch) {
+        this.playersPitch = playersPitch;
     }
 
-    public ArrayList<Player> getPlayersBench() {
+    public ArrayList<Integer> getPlayersBench() {
         return playersBench;
     }
 
-    public void setPlayersBench(ArrayList<Player> playersBench) {
+    public void setPlayersBench(ArrayList<Integer> playersBench) {
         this.playersBench = playersBench;
     }
-
-    public void addPlayerPitch(Player player) {
-        this.playersPitch.add(player);
-    }
-
 
     @Override
     public String toString() {
@@ -100,9 +93,10 @@ public class Match implements Serializable {
                 "opponent: " + opponent + "\n" +
                 "date: " + date + "\n" +
                 "place: " + place + "\n" +
+                "kind: " + kind + "\n" +
                 "playersPitch: " + playersPitch + "\n" +
-                "playersBench: " + playersPitch + "\n" +
-                "----------------------------------\n";
+                "playersBench" + playersBench;
+
     }
 
     public boolean equals(Object obj) {
@@ -112,9 +106,9 @@ public class Match implements Serializable {
             return ((Match) obj).opponent.equals(opponent) &&
                     ((Match) obj).date.equals(date) &&
                     ((Match) obj).place.equals(place) &&
-                    ((Match) obj).kind.equals(kind); //&&
-//                    ((Match) obj).playersPitch.equals(playersPitch) &&
-//                    ((Match) obj).playersBench.equals(playersBench);
+                    ((Match) obj).kind.equals(kind) &&
+                    ((Match) obj).playersPitch.equals(playersPitch) &&
+                    ((Match) obj).playersBench.equals(playersBench);
         }
     }
 }

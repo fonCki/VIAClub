@@ -6,7 +6,7 @@ public class MatchListManager {
     public static MatchList getMatchListFromFile()  {
         MatchList matchList = new MatchList();
         try {
-            matchList = (MatchList) MyFileHandler.readFromBinaryFile("Match-List.bin");
+            matchList = (MatchList) MyFileHandler.readFromBinaryFile("Match-List.via");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -29,7 +29,7 @@ public class MatchListManager {
 
     public static void writeInFile(MatchList matchList) {
         try {
-            MyFileHandler.writeToBinaryFile("Match-List.bin", matchList);
+            MyFileHandler.writeToBinaryFile("Match-List.via", matchList);
         } catch (IOException e) {
             e.printStackTrace();
         }

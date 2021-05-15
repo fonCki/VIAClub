@@ -38,7 +38,6 @@ public class PlayerListController {
     private void updateTable() {
         playersTable.getItems().clear();
         for (Player player: playerList.getPlayersList()) {
-            System.out.println("Feliz Domingo \n" + player);
             if (!(player.systemStatus.isDeleted()))
                 playersTable.getItems().add(player);
         }
@@ -67,8 +66,8 @@ public class PlayerListController {
 
     public void actionPlayer(ActionEvent e) throws IOException {
 
-        String action = (e.getSource() == editPlayer) ? "edith" : "add"; // Create the action
-        System.out.println(action);
+        String action = (e.getSource() == editPlayer) ? "edit" : "add"; // Create the action
+
         Stage secondStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
         Pane root = fxmlLoader.load(getClass().getResource("player.fxml").openStream());
@@ -79,23 +78,23 @@ public class PlayerListController {
         playControl.transferData(playersTable.getSelectionModel().getSelectedItem(), playerList, action); // Comparto si una esta seleccionada, y tambien el playerList
         //////////////////////
 
-        secondStage.setTitle("VIA Club");
+        secondStage.setTitle("Player info");
         secondStage.setScene(new Scene(root, 450, 655));
 
 
-        anchorPane.setDisable(true);
-        /*
+//        anchorPane.setDisable(true);
+
         secondStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
                 anchorPane.setDisable(false);
             }
         });
-        */
+
 
         secondStage.showAndWait();
         updateTable();
-        anchorPane.setDisable(false);
+//        anchorPane.setDisable(false);
 
 
     }

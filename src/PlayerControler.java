@@ -45,7 +45,7 @@ public class PlayerControler {
             number.getSelectionModel().selectFirst();
             playerID = playerList.getSize();
 
-        } else if (action.equals("edith") && player != null) {
+        } else if (action.equals("edit") && player != null) {
                 nameField.setText(player.getName());
                 lastNameField.setText(player.getLastName());
                 dateOfBirthField.setValue(player.getDateOfBirth());
@@ -60,7 +60,6 @@ public class PlayerControler {
                     if (player.getPosition().contains("Forward")) forward.setSelected(true);
 
                 RadioButton option = (RadioButton) status.getSelectedToggle();
-            System.out.println(option.getText());
                 switch (player.getStatus()) {
                     case "Available" : {
                         status.selectToggle(available);
@@ -123,8 +122,9 @@ public class PlayerControler {
                 player.setStatus(selectedToggle.getText());
                 player.systemStatus.setStatus(selectedToggle.getText());
                 ///////
-
                 PlayerListManager.savePlayer(playerList, player, playerID);
+                Stage stage = (Stage) save.getScene().getWindow();
+                stage.close();
 
             }
 
