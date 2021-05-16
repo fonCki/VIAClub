@@ -11,62 +11,46 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class IncludePlayersController {
-    @FXML
-    private TableView tableFullPlayers;
-    @FXML
-    private TableView tablePlayersPitch;
-    @FXML
-    private TableView tablePlayersBench;
+    @FXML private TableView tableFullPlayers;
+    @FXML private TableView tablePlayersPitch;
+    @FXML private TableView tablePlayersBench;
 
-    @FXML
-    TableColumn<Player, String> nameAll;
-    @FXML
-    TableColumn<Player, String> lastNameAll;
-    @FXML
-    TableColumn<Player, String> positionAll;
-    @FXML
-    TableColumn<Player, String> statusAll;
+    @FXML TableColumn<Player, String> nameAll;
+    @FXML TableColumn<Player, String> lastNameAll;
+    @FXML TableColumn<Player, String> positionAll;
+    @FXML TableColumn<Player, String> statusAll;
 
-    @FXML
-    TableColumn<Player, String> namePitch;
-    @FXML
-    TableColumn<Player, String> lastNamePitch;
-    @FXML
-    TableColumn<Player, String> positionPitch;
-    @FXML
-    TableColumn<Player, String> statusPitch;
+    @FXML TableColumn<Player, String> namePitch;
+    @FXML TableColumn<Player, String> lastNamePitch;
+    @FXML TableColumn<Player, String> positionPitch;
+    @FXML TableColumn<Player, String> statusPitch;
 
-    @FXML
-    TableColumn<Player, String> nameBench;
-    @FXML
-    TableColumn<Player, String> lastNameBench;
-    @FXML
-    TableColumn<Player, String> positionBench;
-    @FXML
-    TableColumn<Player, String> statusBench;
+    @FXML TableColumn<Player, String> nameBench;
+    @FXML TableColumn<Player, String> lastNameBench;
+    @FXML TableColumn<Player, String> positionBench;
+    @FXML TableColumn<Player, String> statusBench;
 
-    @FXML
-    private Button addPitch;
-    @FXML
-    private Button removePitch;
-    @FXML
-    private Button addBench;
-    @FXML
-    private Button removeBench;
+    @FXML private Button addPitch;
+    @FXML private Button removePitch;
+    @FXML private Button addBench;
+    @FXML private Button removeBench;
 
     @FXML private Button save;
 
     private Match match;
     private PlayerList playerList;
 
-    private ArrayList<Integer> availablePlayers = new ArrayList<Integer>();
-    private ArrayList<Integer> pitchPlayers;
-    private ArrayList<Integer> benchPlayers;
+    private HashSet<Integer> availablePlayers = new HashSet<Integer>();
+    private HashSet<Integer> pitchPlayers;
+    private HashSet<Integer> benchPlayers;
 
 
     public void updateTables() {
+        System.out.println(match);
+
         tableFullPlayers.getItems().clear();
         for (int playerId : availablePlayers) {
 
@@ -130,13 +114,13 @@ public class IncludePlayersController {
 
     private void initArrayPlayers() {
         if (match.getPlayersPitch() == null) {
-            pitchPlayers = new ArrayList<Integer>();
+            pitchPlayers = new HashSet<Integer>(match.getMaxPlayersPitch());
         } else {
             pitchPlayers = match.getPlayersPitch();
         }
 
         if (match.getPlayersBench() == null) {
-            benchPlayers = new ArrayList<Integer>();
+            benchPlayers = new HashSet<Integer>(match.getMaxPlayersBench());
         } else {
             benchPlayers = match.getPlayersBench();
         }
@@ -145,9 +129,6 @@ public class IncludePlayersController {
           //  if (!benchPlayers.contains(i) && pitchPlayers.contains(i))
             availablePlayers.add(i); /// ERAGSDFV CORREGIR ESTO URGENTE!! FEO FEO!!
         }
-
-
-
         updateTables();
 
     }
@@ -159,27 +140,31 @@ public class IncludePlayersController {
     }
 
     public void AllMoveToPitch(ActionEvent e){
-        Player player = (Player) tableFullPlayers.getSelectionModel().getSelectedItem();
-        int indexToClear = availablePlayers.indexOf(player.getPlayerId());
-        availablePlayers.remove(indexToClear);
-        pitchPlayers.add(player.getPlayerId());
-        updateTables();
-
+        if (match.getPlayersPitch().size() < match.getMaxPlayersPitch()) {
+            Player player = (Player) tableFullPlayers.getSelectionModel().getSelectedItem();
+            availablePlayers.remove(player.getPlayerId());
+            pitchPlayers.add(player.getPlayerId());
+            updateTables();
+        } else {
+            AlertControl.infoBox("you have reached the limit of player", "Max Reach");
+        }
     }
 
     public void AllMoveToBench(ActionEvent e){
-        Player player = (Player) tableFullPlayers.getSelectionModel().getSelectedItem();
-        int indexToClear = availablePlayers.indexOf(player.getPlayerId());
-        availablePlayers.remove(indexToClear);
-        benchPlayers.add(player.getPlayerId());
-        updateTables();
+        if (match.getPlayersBench().size() < match.getMaxPlayersBench()) {
+            Player player = (Player) tableFullPlayers.getSelectionModel().getSelectedItem();
+            availablePlayers.remove(player.getPlayerId());
+            benchPlayers.add(player.getPlayerId());
+            updateTables();
+        } else {
+            AlertControl.infoBox("you have reached the limit of player", "Max Reach");
+        }
 
     }
 
     public void PitchMoveToAll(ActionEvent e){
         Player player = (Player) tablePlayersPitch.getSelectionModel().getSelectedItem();
-        int indexToClear = pitchPlayers.indexOf(player.getPlayerId());
-        pitchPlayers.remove(indexToClear);
+        pitchPlayers.remove(player.getPlayerId());
         availablePlayers.add(player.getPlayerId());
         updateTables();
 
@@ -187,8 +172,7 @@ public class IncludePlayersController {
 
     public void BenchMoveToAll(ActionEvent e){
         Player player = (Player) tablePlayersBench.getSelectionModel().getSelectedItem();
-        int indexToClear = benchPlayers.indexOf(player.getPlayerId());
-        benchPlayers.remove(indexToClear);
+        benchPlayers.remove(player.getPlayerId());
         availablePlayers.add(player.getPlayerId());
         updateTables();
 

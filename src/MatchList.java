@@ -28,6 +28,10 @@ public class MatchList implements Serializable {
         return -1;
     }
 
+    public Match getMatchByIndex(int index){
+        return matchList.get(index);
+    }
+
     public int getSize() {
         return matchList.size();
     }
@@ -35,6 +39,13 @@ public class MatchList implements Serializable {
     public void updateMatch(int index, Match match) {
         if (index < matchList.size()) {
             matchList.set(index, match);
+        }
+    }
+
+    public void updateBenchAndPitchArrays(int playerIndex) {
+        for (Match match: matchList){
+            match.getPlayersBench().remove(playerIndex);
+            match.getPlayersPitch().remove(playerIndex);
         }
     }
 }

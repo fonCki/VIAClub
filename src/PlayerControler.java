@@ -59,7 +59,6 @@ public class PlayerControler {
                     if (player.getPosition().contains("Midfielder")) midfielder.setSelected(true);
                     if (player.getPosition().contains("Forward")) forward.setSelected(true);
 
-                RadioButton option = (RadioButton) status.getSelectedToggle();
                 switch (player.getStatus()) {
                     case "Available" : {
                         status.selectToggle(available);
@@ -95,17 +94,17 @@ public class PlayerControler {
         if (e.getSource() == save) {
 
             if (nameField.getText() == "") {
-                AlertControl.infoBox("Insert Name", "Error");
+                AlertControl.warningBox("You must insert a Name", "Error");
             }
             else if (lastNameField.getText() == "") {
-                AlertControl.infoBox("Insert lastName", "Error");
+                AlertControl.warningBox("You must insert a Last Name", "Error");
             }
             else if (dateOfBirthField.getValue() == null) {
-                AlertControl.infoBox("I'm so tired of you bro", "Error");
+                AlertControl.warningBox("I'm getting really angry 😡", "Error");
             }
             else if (!goalkeeper.isSelected() && !defender.isSelected() &&
                     !midfielder.isSelected() && !forward.isSelected()) {
-                AlertControl.infoBox("You must select at least one position trained", "Error");
+                AlertControl.warningBox("You must select at least one position trained.", "Error");
             } else { // Finally I add the player
 
                 ///// Create the player///////

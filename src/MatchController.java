@@ -1,3 +1,4 @@
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class MatchController {
@@ -33,16 +35,16 @@ public class MatchController {
     @FXML TableColumn<Player, String> positionBench;
     @FXML TableColumn<Player, String> statusBench;
     @FXML Button save;
+    @FXML Button cancel;
     @FXML Button addPlayers;
 
     private int uid;
     private MatchList matchList;
-    private Match match;
+    private Match match, newMatch;
     private PlayerList playerList;
 
     public void initialize() {
-        this.playerList = PlayerListManager.getPlayerListFromFile();
-
+       // this.playerList = PlayerListManager.getPlayerListFromFile();
         //Inicio las columnas)
         if (namePitch != null) {
             namePitch.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
@@ -79,8 +81,9 @@ public class MatchController {
         }
     }
 
-    public void transferData(Match match, MatchList matchList, String action) {
+    public void transferData(Match match, MatchList matchList, String action, PlayerList playerList) {
         this.matchList = matchList;
+        this.playerList = playerList;
         if (action.equals("add")) {
             uid = MatchListManager.getNewPosition(matchList); // Creo un nuevo ID
         } else if (action.equals("edit") && match != null) {
@@ -106,64 +109,89 @@ public class MatchController {
                 }
             }
             updateTables();
-
-
-
-            // kind // FINISH THIS PART
-            //Cargo los playersPich
-            /*
-            for (Player player: match.getPlayersPitch()) {
-                playersPitch.getItems().add(player);
-            }
-            //Cargo los playersBench
-            for (Player player: match.getPlayersBench()) {
-                playersBench.getItems().add(player);
-            }
-
-             */
         }
     }
 
-    public void createMatch() {
+    private void updatePlayersMatch(Match newMatch, Match oldMatch) {
+        newMatch.setPlayersPitch(oldMatch.getPlayersPitch());
+        if (oldMatch.getPlayersBench().size() > newMatch.getMaxPlayersBench()) {
+            if (AlertControl.confirmationBox("You have more players on the bench than the new kind of match accept. " +
+                    "If you continue, they will be reduced to fit into the new specifications. \n \n" +
+                    "Do you wish to continue?\n", "Kind conflict")) {
+                ArrayList<Integer> tempBenchArray = new ArrayList<Integer>(newMatch.getMaxPlayersBench());
+                HashSet<Integer> tempBenchHash = new HashSet<Integer>(newMatch.getMaxPlayersBench());
+                for (int PlayerById : oldMatch.getPlayersBench())
+                    tempBenchArray.add(PlayerById);
+                for (int i=0; i < newMatch.getMaxPlayersBench(); i++) {
+                    tempBenchHash.add(tempBenchArray.get(i));
+                }
+                newMatch.setPlayersBench(tempBenchHash);
+            } else { // else, cancel Alert Control.
+                newMatch.setPlayersBench(oldMatch.getPlayersBench());
+                newMatch.setKind("Friendly"); // Set the kind to friendly to avoid conflicts
+            }
+        } else {
+            newMatch.setPlayersBench(oldMatch.getPlayersBench());
+        }
+    }
 
+    private boolean createOrEditMatch() {
+        if (opponent.getText() == "") {
+            AlertControl.warningBox("You must insert an opponent", "Error");
+        } else if (date.getValue() == null) {
+            AlertControl.warningBox("You must insert a date", "Error");
+        } else { // After control blank fields, the match is created
+            newMatch = new Match(opponent.getText(),
+                                 date.getValue(),
+                                (place.getText() == "" ? "Via Stadium" : place.getText()),
+                                ((RadioButton) kind.getSelectedToggle()).getText());
+            if (match != null) { // Copy the players if the action is an update
+                updatePlayersMatch(newMatch, match);
+            }
+            MatchListManager.saveMatch(matchList, newMatch, uid);
+            match = newMatch;
+            return true;
+        }
+        return false;
+    }
+
+    public void cancel(ActionEvent e) {
+        if (e.getSource() == cancel) {
+            Stage stage = (Stage) cancel.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void save(ActionEvent e) throws IOException {
-        ///Creo el match///
-        if (match == null) {
-            match = new Match(opponent.getText(), date.getValue(), place.getText(), ((RadioButton) kind.getSelectedToggle()).getText());
+        if (createOrEditMatch()) {
+            Stage stage = (Stage) save.getScene().getWindow();
+            stage.close();
         }
-        System.out.println("Este es el match " + match);
-        MatchListManager.saveMatch(matchList, match, uid);
-        //////////////////
-        Stage stage = (Stage) save.getScene().getWindow();
-        stage.close();
-
     }
 
     public void addPlayers(ActionEvent e) throws IOException {
-        ///Creo el match///
-        if (match == null) {
-            match = new Match(opponent.getText(), date.getValue(), place.getText(), ((RadioButton) kind.getSelectedToggle()).getText());
+        if (createOrEditMatch()) {
+
+            //Starting the third stage//
+            Stage thirdStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Pane root = fxmlLoader.load(getClass().getResource("includePlayers.fxml").openStream());
+
+            //Sharing data!
+            IncludePlayersController includePlayersController = fxmlLoader.getController();
+            includePlayersController.transferData(match, playerList); // Comparto
+
+
+
+            thirdStage.setTitle("Players");
+            thirdStage.setScene(new Scene(root, 850, 855));
+
+            thirdStage.showAndWait();
+
+            updateTables();
+
         }
-        MatchListManager.saveMatch(matchList, match, uid);
 
-
-        Stage thirdStage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane root = fxmlLoader.load(getClass().getResource("includePlayers.fxml").openStream());
-
-        IncludePlayersController includePlayersController = fxmlLoader.getController();
-
-        includePlayersController.transferData(match, playerList); // Comparto
-
-
-        thirdStage.setTitle("VIA Club");
-        thirdStage.setScene(new Scene(root, 850, 855));
-
-        thirdStage.showAndWait();
-
-        updateTables();
     }
 
 

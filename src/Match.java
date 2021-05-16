@@ -3,14 +3,16 @@ import java.security.SecureRandomParameters;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Match implements Serializable {
+
     private String opponent;
     private LocalDate date;
     private String place;
     private String kind;
-    private ArrayList<Integer> playersPitch;
-    private ArrayList<Integer> playersBench;
+    private HashSet<Integer> playersPitch;
+    private HashSet<Integer> playersBench;
     private final int maxPlayersPitch = 11;
     private int maxPlayersBench;
 
@@ -30,12 +32,12 @@ public class Match implements Serializable {
                 break;
             }
             case "friendly" : {
-                maxPlayersBench = 50;
+                maxPlayersBench = 1000;
                 break;
             }
         };
-        playersPitch = new ArrayList<Integer>(maxPlayersPitch);
-        playersBench = new ArrayList<Integer>(maxPlayersBench);
+        playersPitch = new HashSet<>(maxPlayersPitch);
+        playersBench = new HashSet<>(maxPlayersBench);
 
     }
 
@@ -71,20 +73,28 @@ public class Match implements Serializable {
         this.kind = kind;
     }
 
-    public ArrayList<Integer> getPlayersPitch() {
+    public HashSet<Integer> getPlayersPitch() {
         return playersPitch;
     }
 
-    public void setPlayersPitch(ArrayList<Integer> playersPitch) {
+    public void setPlayersPitch(HashSet<Integer> playersPitch) {
         this.playersPitch = playersPitch;
     }
 
-    public ArrayList<Integer> getPlayersBench() {
+    public HashSet<Integer> getPlayersBench() {
         return playersBench;
     }
 
-    public void setPlayersBench(ArrayList<Integer> playersBench) {
+    public void setPlayersBench(HashSet<Integer> playersBench) {
         this.playersBench = playersBench;
+    }
+
+    public int getMaxPlayersPitch() {
+        return this.maxPlayersPitch;
+    }
+
+    public int getMaxPlayersBench() {
+        return this.maxPlayersBench;
     }
 
     @Override

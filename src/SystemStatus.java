@@ -12,6 +12,10 @@ public class SystemStatus implements Serializable {
         this.deleted = !(this.available);
     }
 
+    public SystemStatus(String status) {
+        this.setStatus(status);
+    }
+
     public void setAvailable() {
         this.available = true;
         this.unavailable = !(this.available);
@@ -20,14 +24,14 @@ public class SystemStatus implements Serializable {
 
     public void setUnavailable() {
         this.unavailable = true;
-        this.available = false;
-        this.deleted = false;
+        this.available = !(this.unavailable);
+        this.deleted = !(this.unavailable);
     }
 
     public void setDeleted() {
         this.deleted = true;
-        this.unavailable = false;
-        this.available = false;
+        this.unavailable = !(this.deleted);
+        this.available = !(this.deleted);
     }
 
     public void setStatus(String status) {
@@ -63,6 +67,10 @@ public class SystemStatus implements Serializable {
         if (this.unavailable) return "Unavailable";
         if (this.deleted) return "Deleted";
         return "System Status Error";
+    }
+
+    public String toString() {
+        return getStatus();
     }
 
     public boolean equals(Object obj) {

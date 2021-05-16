@@ -18,8 +18,8 @@ import java.time.LocalDate;
 
 public class MatchListController {
 
+    ////// MATCH TAB OBJECTS
     @FXML private AnchorPane anchorPane;
-
     @FXML private TableView<Match> matchTable;
     @FXML private TableColumn<Match, LocalDate> date;
     @FXML private TableColumn<Match, String> opponent;
@@ -33,8 +33,11 @@ public class MatchListController {
 
 
     private MatchList matchList;
+    private PlayerList playerList;
 
-    private void updateTable() {
+    ///// PlayersTabObject
+
+    private void updateMatchTable() {
         matchTable.getItems().clear();
         for (Match match: matchList.getMatchList()) {
             matchTable.getItems().add(match);
@@ -45,12 +48,13 @@ public class MatchListController {
 
     public void initialize() {
         matchList = MatchListManager.getMatchListFromFile();
+        this.playerList = PlayerListManager.getPlayerListFromFile();
 
         date.setCellValueFactory(new PropertyValueFactory<Match, LocalDate>("date"));
         opponent.setCellValueFactory(new PropertyValueFactory<Match, String>("opponent"));
         place.setCellValueFactory(new PropertyValueFactory<Match, String>("place"));
         kind.setCellValueFactory(new PropertyValueFactory<Match, String>("kind"));
-        updateTable();
+        updateMatchTable();
         editButton.disableProperty().bind(Bindings.isEmpty(matchTable.getSelectionModel().getSelectedItems())); // Button is only available if a match is selected!!
         deleteMatch.disableProperty().bind(Bindings.isEmpty(matchTable.getSelectionModel().getSelectedItems()));
     }
@@ -68,7 +72,7 @@ public class MatchListController {
             /// SHARING DATA ///
             if (e.getSource() == editButton ||  e.getSource() == addMatch) {
                 MatchController matchControl = fxmlLoader.getController();
-                matchControl.transferData(matchTable.getSelectionModel().getSelectedItem(), matchList, action); // Comparto si una esta seleccionada, y tambien el matchList
+                matchControl.transferData(matchTable.getSelectionModel().getSelectedItem(), matchList, action, playerList); // Comparto si una esta seleccionada, y tambien el matchList
             }
             //////////////////////
 
@@ -76,7 +80,7 @@ public class MatchListController {
             secondStage.setScene(new Scene(root, 850, 855));
 
 
-            anchorPane.setDisable(true);
+         //   anchorPane.setDisable(true);
             /*
             secondStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -87,8 +91,8 @@ public class MatchListController {
 */
 
             secondStage.showAndWait();
-            updateTable();
-            anchorPane.setDisable(false);
+            updateMatchTable();
+       //     anchorPane.setDisable(false);
 
 
     }
@@ -96,12 +100,12 @@ public class MatchListController {
     public void deleteMatch(ActionEvent e) {
         System.out.println(matchTable.getSelectionModel().getSelectedItem());
         MatchListManager.deleteMatch(matchList, matchTable.getSelectionModel().getSelectedItem());
-        updateTable();
+        updateMatchTable();
     }
 
 
     public void reload(ActionEvent e) {
-        updateTable();
+        updateMatchTable();
     }
 
     public void write(ActionEvent e) {

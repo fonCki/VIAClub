@@ -12,13 +12,14 @@ public class Player implements Serializable {
     private HashSet<String> position;
     private String status;
 
+
     public Player(int playerId){
         this.playerId = playerId;
         systemStatus = new SystemStatus();
     }
 
     public Player(int playerId, String name, String lastName, LocalDate dateOfBirth, int number, HashSet<String> position, String status) {
-        this.systemStatus = new SystemStatus();
+        this.systemStatus = new SystemStatus(status);
         this.playerId = playerId;
         this.name = name;
         this.lastName = lastName;
