@@ -16,6 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.*;
+import utils.AlertControl;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -23,7 +25,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -157,14 +158,14 @@ public class AdminPanelController {
 
         ///MATCH TAB DATA INITIALIZE//
 
-        //Match data columns
+        //model.Match data columns
         matchDate.setCellValueFactory(new PropertyValueFactory<Match, LocalDate>("date"));
         opponent.setCellValueFactory(new PropertyValueFactory<Match, String>("opponent"));
         place.setCellValueFactory(new PropertyValueFactory<Match, String>("place"));
         kind.setCellValueFactory(new PropertyValueFactory<Match, String>("kind"));
         updateMatchTable();
 
-        //Match buttons
+        //model.Match buttons
         editMatch.disableProperty().bind(Bindings.isEmpty(matchTable.getSelectionModel().getSelectedItems())); // Button is only available if a match is selected!!
         deleteMatch.disableProperty().bind(Bindings.isEmpty(matchTable.getSelectionModel().getSelectedItems()));// Button is only available if a match is selected!!
         viewMatch.disableProperty().bind(Bindings.isEmpty(matchTable.getSelectionModel().getSelectedItems()));// Button is only available if a match is selected!!
@@ -178,24 +179,72 @@ public class AdminPanelController {
         matchTable.getItems().addAll(matchList.getMatchList());
     }
 
-    public void actionMatch(ActionEvent e) throws IOException {
-        changesMade();
-        String action = (e.getSource() == editMatch) ? "edit" : "add"; // Recognise the action
+    private void viewMatch(Match match) {
+
         //Create the new Stage match
         Stage secondStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane root = fxmlLoader.load(getClass().getResource("match.fxml").openStream());
+        Pane root = null;
+        try {
+            root = fxmlLoader.load(getClass().getResource("listView.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         /////////////////////////////////
 
         /// SHARING DATA /////////////////
-      //  if (e.getSource() == editMatch ||  e.getSource() == addMatch) {
-            MatchController matchControl = fxmlLoader.getController();
-            matchControl.transferData(matchTable.getSelectionModel().getSelectedItem(), matchList, action, playerList); // share the selection, the whole match list, the action and the player list
-    //    }
+        ListViewController listView = fxmlLoader.getController();
+        listView.transferData(match, playerList); //
         ////////////////////////////////
 
         // Start the new Stage
-        secondStage.setTitle("Match");
+        secondStage.setTitle("model.Match");
+        secondStage.setScene(new Scene(root, 500, 600));
+        ///////////////////////
+
+        //Change the modality of the fist main to disable
+        Stage fistStage = (Stage) mainAnchorPane.getScene().getWindow(); // I get the first stage.
+        secondStage.initOwner(fistStage);
+        secondStage.initModality(Modality.WINDOW_MODAL);
+        mainAnchorPane.setDisable(true);
+        ///////////////////////////////////////////////////
+        secondStage.showAndWait();
+
+        //Once the second stage was closed
+        mainAnchorPane.setDisable(false);
+
+
+    }
+
+
+    public void viewMatch(ActionEvent e) {
+        Match match = matchTable.getSelectionModel().getSelectedItem();
+        if (match != null) {
+            viewMatch(match);
+        }
+    }
+
+    public void actionMatch(Match match, String action) {
+        changesMade();
+
+        //Create the new Stage match
+        Stage secondStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Pane root = null;
+        try {
+            root = fxmlLoader.load(getClass().getResource("match.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /////////////////////////////////
+
+        /// SHARING DATA /////////////////
+        MatchController matchControl = fxmlLoader.getController();
+        matchControl.transferData(match, matchList, action, playerList); // share the selection, the whole match list, the action and the player list
+        ////////////////////////////////
+
+        // Start the new Stage
+        secondStage.setTitle("model.Match");
         secondStage.setScene(new Scene(root, 724, 600));
         ///////////////////////
 
@@ -222,6 +271,13 @@ public class AdminPanelController {
         updateMatchTable();
         startHomePane();
         mainAnchorPane.setDisable(false);
+
+    }
+
+    public void actionMatch(ActionEvent e) throws IOException {
+        String action = (e.getSource() == editMatch) ? "edit" : "add"; // Recognise the action
+        Match match = matchTable.getSelectionModel().getSelectedItem();
+        actionMatch(match, action);
     }
 
     private void deleteMatch(Match match){
@@ -268,24 +324,27 @@ public class AdminPanelController {
         }
     }
 
-    public void actionPlayer(ActionEvent e) throws IOException {
+    private void actionPlayer(Player player, String action) {
         changesMade();
-        String action = (e.getSource() == editPlayer) ? "edit" : "add"; // Recognise the action
 
         //Create the new Stage player
         Stage secondStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane root = fxmlLoader.load(getClass().getResource("player.fxml").openStream());
+        Pane root = null;
+        try {
+            root = fxmlLoader.load(getClass().getResource("player.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         /////////////////////////////////
 
         /// SHARING DATA (In this case always sharing data. if is nothing selected too, in that case I can get the playerList in the second stage)///
-        Player playerSelected = playersTable.getSelectionModel().getSelectedItem();
         PlayerControler playControl = fxmlLoader.getController();
-        playControl.transferData(playerSelected, playerList, action); // share the selection, the whole player list, and the action
+        playControl.transferData(player, playerList, action); // share the selection, the whole player list, and the action
         //////////////////////////////////
 
         // Start the new Stage
-        secondStage.setTitle("Player");
+        secondStage.setTitle("model.Player");
         secondStage.setScene(new Scene(root, 400, 600));
         ///////////////////////
 
@@ -313,6 +372,13 @@ public class AdminPanelController {
         mainAnchorPane.setDisable(false);
 
     }
+
+    public void actionPlayer(ActionEvent e) throws IOException {
+        String action = (e.getSource() == editPlayer) ? "edit" : "add"; // Recognise the action
+        Player player = playersTable.getSelectionModel().getSelectedItem();
+        actionPlayer(player, action);
+    }
+
 
     public void deletePlayer(Player player) {
         if (AlertControl.confirmationBox("The player will be eliminated from the system " +
@@ -527,16 +593,17 @@ public class AdminPanelController {
     }
 
     public void mouseEvent(MouseEvent mouseEvent) {
-//        if (mouseEvent.getClickCount() == 2) {
-//            Object selectedObject = ((TableView) mouseEvent.getSource()).getSelectionModel().getSelectedItem();
-//            if (selectedObject != null) {
-//                if (selectedObject instanceof Match) {
-
-//                }
-//            }
-//        }
+        if (mouseEvent.getClickCount() == 2) {
+            Object selectedObject = ((TableView) mouseEvent.getSource()).getSelectionModel().getSelectedItem();
+            if (selectedObject != null) {
+                if (selectedObject instanceof Player) {
+                    actionPlayer((Player) selectedObject, "edit");
+                } else if (selectedObject instanceof Match) {
+                    viewMatch((Match) selectedObject);
+                }
+            }
+        }
     }
-
 
 }
 

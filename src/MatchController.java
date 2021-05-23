@@ -1,5 +1,4 @@
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,9 +10,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.*;
+import utils.AlertControl;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -48,7 +48,7 @@ public class MatchController {
     private PlayerList playerList;
 
     public void initialize() {
-       // this.playerList = PlayerListManager.getPlayerListFromFile();
+       // this.playerList = model.PlayerListManager.getPlayerListFromFile();
         //Inicio las columnas)
         if (numberPitch != null) { //Change This
             namePitch.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));

@@ -20,27 +20,27 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayerControler">
    <children>
-      <VBox prefHeight="600.0" prefWidth="400.0" styleClass="sidebar" stylesheets="@test.css">
+      <VBox prefHeight="600.0" prefWidth="400.0" styleClass="sidebar" stylesheets="@style/style.css">
          <children>
             <AnchorPane prefHeight="175.0" prefWidth="400.0" style="-fx-background-color: #00A2D3;">
                <children>
                   <Label fx:id="uid" layoutX="328.0" layoutY="7.0" text="ID#:" />
-                  <TextField fx:id="nameField" layoutX="233.0" layoutY="36.0" prefHeight="26.0" prefWidth="120.0" promptText="Name">
+                  <TextField fx:id="nameField" layoutX="233.0" layoutY="36.0" prefHeight="26.0" prefWidth="120.0" promptText="Name" styleClass="text-header">
                      <font>
-                        <Font name="System Italic" size="18.0" />
+                        <Font name="VIA Type Bold" size="18.0" />
                      </font></TextField>
-                  <TextField fx:id="lastNameField" layoutX="234.0" layoutY="81.0" prefHeight="26.0" prefWidth="120.0" promptText="Last Name">
+                  <TextField fx:id="lastNameField" layoutX="234.0" layoutY="81.0" prefHeight="26.0" prefWidth="120.0" promptText="Last Name" styleClass="text-header">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="VIA Type Bold" size="18.0" />
                      </font></TextField>
                   <ImageView fitHeight="150.0" fitWidth="161.0" layoutX="28.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@avatar.png" />
+                        <Image url="@img/avatar.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="age" editable="false" layoutX="234.0" layoutY="131.0" prefHeight="26.0" prefWidth="120.0" promptText="age" style="-fx-background-color: transparent transparent;" stylesheets="@test.css">
+                  <TextField fx:id="age" editable="false" layoutX="234.0" layoutY="131.0" prefHeight="26.0" prefWidth="120.0" styleClass="text-header" stylesheets="@style/style.css">
                      <font>
-                        <Font name="VIA Type Regular" size="13.0" />
+                        <Font name="VIA Type Regular" size="14.0" />
                      </font></TextField>
                </children>
             </AnchorPane>
@@ -48,7 +48,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_event_white_24dp.png" />
+                        <Image url="@img/outline_event_white_24dp.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -71,7 +71,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_filter_9_plus_white_24dp.png" />
+                        <Image url="@img/outline_filter_9_plus_white_24dp.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -97,7 +97,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_radar_white_24dp.png" />
+                        <Image url="@img/outline_radar_white_24dp.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -146,7 +146,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_no_accounts_white_24dp.png" />
+                        <Image url="@img/outline_no_accounts_white_24dp.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" />

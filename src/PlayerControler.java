@@ -3,10 +3,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Player;
+import model.PlayerList;
+import model.PlayerListManager;
+import utils.AlertControl;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 

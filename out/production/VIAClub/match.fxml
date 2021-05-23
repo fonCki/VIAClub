@@ -18,12 +18,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="724.0" style="-fx-background-color: fff;" stylesheets="@test.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MatchController">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="724.0" style="-fx-background-color: fff;" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MatchController">
    <children>
       <Label fx:id="matchID" layoutX="174.0" layoutY="633.0" text="matchID" />
-      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="724.0" style="-fx-background-color: F4FFEB;" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="724.0" style="-fx-background-color: #77DD77 #77DD77 #77DD77 #77DD77; -fx-border-color: #333645;" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="TOP_RIGHT" prefWidth="250.0" text="VIA Club" textFill="#7c8184">
+            <Label alignment="TOP_RIGHT" prefWidth="250.0" text="VIA Club" textFill="WHITE">
                <font>
                   <Font name="VIA Type Bold" size="29.0" />
                </font>
@@ -34,12 +34,12 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <Label text="vs" textFill="#7c8184">
+            <Label text="vs" textFill="WHITE">
                <font>
                   <Font name="VIA Type Bold" size="29.0" />
                </font>
             </Label>
-            <TextField fx:id="opponent" prefHeight="52.0" prefWidth="250.0" promptText="Write Opponent..." styleClass="text-header" stylesheets="@test.css">
+            <TextField fx:id="opponent" prefHeight="52.0" prefWidth="250.0" promptText="Write Opponent..." styleClass="text-header" stylesheets="@style/style.css">
                <font>
                   <Font name="VIA Type Regular" size="28.0" />
                </font>
@@ -55,7 +55,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_event_white_24dp.png" />
+                        <Image url="@img/outline_event_white_24dp.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -82,7 +82,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_location_on_white_24dp.png" />
+                        <Image url="@img/outline_location_on_white_24dp.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -106,7 +106,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_style_white_24dp.png" />
+                        <Image url="@img/outline_style_white_24dp.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -138,7 +138,7 @@
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </padding>
                <children>
-                  <JFXButton fx:id="addButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#addPlayers" prefHeight="45.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Add/Delete Player" textFill="WHITE">
+                  <JFXButton fx:id="addButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#addPlayers" prefHeight="45.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Add/Delete model.Player" textFill="WHITE">
                      <font>
                         <Font name="VIA Type Regular" size="14.0" />
                      </font>
@@ -148,14 +148,14 @@
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@outline_person_add_white_24dp.png" />
+                              <Image url="@img/outline_person_add_white_24dp.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="104.0" prefWidth="362.0" stylesheets="@test.css">
+            <HBox alignment="CENTER" prefHeight="104.0" prefWidth="362.0" stylesheets="@style/style.css">
                <padding>
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </padding>
@@ -199,7 +199,7 @@
                   <Insets bottom="-1.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="playersPitch" prefHeight="307.0" prefWidth="364.0" styleClass="table-match" stylesheets="@test.css">
+            <TableView fx:id="playersPitch" prefHeight="307.0" prefWidth="364.0" styleClass="table-match" stylesheets="@style/style.css">
               <columns>
                 <TableColumn fx:id="namePitch" prefWidth="70.0" text="Name" />
                   <TableColumn fx:id="lastNamePitch" prefWidth="75.0" text="Last Name" />
@@ -221,7 +221,7 @@
                   <Insets bottom="-1.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="playersBench" prefHeight="166.0" prefWidth="364.0" styleClass="table-match" stylesheets="@test.css">
+            <TableView fx:id="playersBench" prefHeight="166.0" prefWidth="364.0" styleClass="table-match" stylesheets="@style/style.css">
                <columns>
                   <TableColumn fx:id="nameBench" prefWidth="70.0" text="Name" />
                   <TableColumn fx:id="lastNameBench" prefWidth="75.0" text="Last Name" />

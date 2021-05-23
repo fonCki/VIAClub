@@ -22,9 +22,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainAnchorPane" prefHeight="627.0" prefWidth="1024.0" styleClass="parent" stylesheets="@test.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPanelController">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="627.0" prefWidth="1024.0" scaleShape="false" styleClass="parent" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPanelController">
    <children>
-      <VBox prefHeight="600.0" prefWidth="300.0" styleClass="sidebar" AnchorPane.bottomAnchor="0.0">
+      <VBox prefHeight="600.0" prefWidth="300.0" styleClass="sidebar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="724.0" AnchorPane.topAnchor="27.0">
          <children>
             <Label prefHeight="75.0" prefWidth="300.0" style="-fx-background-color: #202332#202332;" text="Admin Panel" textFill="WHITE">
                <padding>
@@ -38,7 +38,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_search_white_24dp.png" />
+                        <Image url="@img/outline_search_white_24dp.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="15.0" />
@@ -64,7 +64,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_home_white_24dp.png" />
+                        <Image url="@img/outline_home_white_24dp.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -88,7 +88,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_sports_soccer_white_24dp.png" />
+                        <Image url="@img/outline_sports_soccer_white_24dp.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -109,7 +109,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@outline_face_white_24dp.png" />
+                        <Image url="@img/outline_face_white_24dp.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -123,14 +123,14 @@
             <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <MenuBar AnchorPane.bottomAnchor="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar prefWidth="1024.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
                   <Menu mnemonicParsing="false" text="New">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#actionMatch" text="Match" />
-                        <MenuItem mnemonicParsing="false" onAction="#actionPlayer" text="Player" />
+                      <MenuItem mnemonicParsing="false" onAction="#actionMatch" text="model.Match" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionPlayer" text="model.Player" />
                     </items>
                   </Menu>
                   <MenuItem fx:id="save" mnemonicParsing="false" onAction="#write" text="Save" />
@@ -156,115 +156,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="matchesPane" layoutX="299.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="724.0" AnchorPane.bottomAnchor="0.0">
-         <children>
-            <AnchorPane layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="724.0" style="-fx-background-color: #77DD77;" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0">
-                     <color>
-                        <Color red="0.7368420958518982" green="0.6481481194496155" blue="0.6481481194496155" />
-                     </color>
-                  </DropShadow>
-               </effect>
-               <children>
-                  <Label layoutX="27.0" layoutY="27.0" text="Matches" textFill="WHITE" AnchorPane.leftAnchor="20.0">
-                     <font>
-                        <Font name="VIA Type Bold" size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutY="75.0" prefHeight="525.0" prefWidth="724.0" style="-fx-background-color: F4FFEB;">
-               <children>
-                  <TableView fx:id="matchTable" layoutX="27.0" layoutY="26.0" onKeyPressed="#keyPressed" prefHeight="474.0" prefWidth="530.0" styleClass="table-match" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
-                     <columns>
-                        <TableColumn fx:id="matchDate" text="Date" />
-                        <TableColumn fx:id="opponent" prefWidth="148.0" text="Opponent" />
-                        <TableColumn fx:id="place" prefWidth="150.0" text="Place" />
-                        <TableColumn fx:id="kind" prefWidth="150.0" text="Kind of Match" />
-                     </columns>
-                  </TableView>
-                  <VBox layoutX="557.0" layoutY="26.0" prefHeight="482.0" prefWidth="160.0" AnchorPane.topAnchor="20.0">
-                     <children>
-                        <JFXButton fx:id="addMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionMatch" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Add Match" textFill="WHITE">
-                           <font>
-                              <Font name="VIA Type Regular" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@outline_add_circle_outline_white_24dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="deleteMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteMatch" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77#77DD77; -fx-background-radius: 0px;" text="Delete" textFill="WHITE">
-                           <font>
-                              <Font name="VIA Type Regular" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@outline_delete_white_24dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="editMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionMatch" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77#77DD77; -fx-background-radius: 0px;" text="Edit" textFill="WHITE">
-                           <font>
-                              <Font name="VIA Type Regular" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@outline_edit_white_24dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="viewMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77#77DD77; -fx-background-radius: 0px;" text="View" textFill="WHITE">
-                           <font>
-                              <Font name="VIA Type Regular" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@outline_visibility_white_24dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="homePane" layoutX="300.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="724.0" AnchorPane.bottomAnchor="0.0">
+      <AnchorPane fx:id="homePane" layoutX="300.0" prefHeight="600.0" prefWidth="724.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
          <children>
             <AnchorPane layoutX="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="724.0" style="-fx-background-color: #FFB304;" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                <effect>
@@ -360,7 +252,7 @@
                               </VBox>
                               <VBox fx:id="restingCard" alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="100.0" prefWidth="135.0" styleClass="cards">
                                  <children>
-                                    <Text fill="#65696b" strokeType="OUTSIDE" strokeWidth="0.0" text="Player who needs to rest">
+                                    <Text fill="#65696b" strokeType="OUTSIDE" strokeWidth="0.0" text="model.Player who needs to rest">
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </VBox.margin>
@@ -540,7 +432,7 @@
                   </TableView>
                   <VBox layoutX="556.0" layoutY="31.0" prefHeight="482.0" prefWidth="160.0" AnchorPane.leftAnchor="556.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <JFXButton fx:id="addPlayer" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionPlayer" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #00A2D3 #00A2D3; -fx-background-radius: 0px;" text="Add Player" textFill="WHITE">
+                        <JFXButton fx:id="addPlayer" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionPlayer" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #00A2D3 #00A2D3; -fx-background-radius: 0px;" text="Add model.Player" textFill="WHITE">
                            <font>
                               <Font name="VIA Type Regular" size="14.0" />
                            </font>
@@ -550,7 +442,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@outline_person_add_white_24dp.png" />
+                                    <Image url="@img/outline_person_add_white_24dp.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -568,7 +460,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@outline_delete_white_24dp.png" />
+                                    <Image url="@img/outline_delete_white_24dp.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -586,7 +478,115 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@outline_edit_white_24dp.png" />
+                                    <Image url="@img/outline_edit_white_24dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="matchesPane" layoutX="299.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="724.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="27.0">
+         <children>
+            <AnchorPane layoutY="1.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="724.0" style="-fx-background-color: #77DD77;" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0">
+                     <color>
+                        <Color red="0.7368420958518982" green="0.6481481194496155" blue="0.6481481194496155" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <children>
+                  <Label layoutX="27.0" layoutY="27.0" text="Matches" textFill="WHITE" AnchorPane.leftAnchor="20.0">
+                     <font>
+                        <Font name="VIA Type Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="75.0" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="724.0" style="-fx-background-color: F4FFEB;">
+               <children>
+                  <TableView fx:id="matchTable" layoutX="27.0" layoutY="26.0" onKeyPressed="#keyPressed" onMouseClicked="#mouseEvent" prefHeight="474.0" prefWidth="530.0" styleClass="table-match" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+                     <columns>
+                        <TableColumn fx:id="matchDate" text="Date" />
+                        <TableColumn fx:id="opponent" prefWidth="148.0" text="Opponent" />
+                        <TableColumn fx:id="place" prefWidth="150.0" text="Place" />
+                        <TableColumn fx:id="kind" prefWidth="150.0" text="Kind of model.Match" />
+                     </columns>
+                  </TableView>
+                  <VBox layoutX="557.0" layoutY="26.0" prefHeight="482.0" prefWidth="160.0" AnchorPane.topAnchor="20.0">
+                     <children>
+                        <JFXButton fx:id="addMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionMatch" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Add model.Match" textFill="WHITE">
+                           <font>
+                              <Font name="VIA Type Regular" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/outline_add_circle_outline_white_24dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="viewMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#viewMatch" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77#77DD77; -fx-background-radius: 0px;" text="View" textFill="WHITE">
+                           <font>
+                              <Font name="VIA Type Regular" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/outline_visibility_white_24dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="editMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionMatch" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77#77DD77; -fx-background-radius: 0px;" text="Edit" textFill="WHITE">
+                           <font>
+                              <Font name="VIA Type Regular" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/outline_edit_white_24dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="deleteMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteMatch" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77#77DD77; -fx-background-radius: 0px;" text="Delete" textFill="WHITE">
+                           <font>
+                              <Font name="VIA Type Regular" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/outline_delete_white_24dp.png" />
                                  </image>
                               </ImageView>
                            </graphic>

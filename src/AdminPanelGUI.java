@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
     public class AdminPanelGUI extends Application {
-
         public void start(Stage primaryStage) throws Exception{
             Parent root = FXMLLoader.load(getClass().getResource("AdminPanel.fxml"));
             primaryStage.setScene(new Scene(root, 1024, 627));

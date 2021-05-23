@@ -1,18 +1,15 @@
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.*;
+import utils.AlertControl;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 
 public class IncludePlayersController {

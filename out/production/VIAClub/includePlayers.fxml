@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" stylesheets="@test.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IncludePlayersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IncludePlayersController">
    <children>
       <HBox prefHeight="600.0" prefWidth="1024.0" style="-fx-background-color: F4FFEB F4FFEB;">
          <children>
@@ -63,7 +63,7 @@
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@outline_east_white_24dp.png" />
+                                          <Image url="@img/outline_east_white_24dp.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -78,7 +78,7 @@
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@outline_west_white_24dp.png" />
+                                          <Image url="@img/outline_west_white_24dp.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -98,7 +98,7 @@
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@outline_east_white_24dp.png" />
+                                          <Image url="@img/outline_east_white_24dp.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -113,7 +113,7 @@
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@outline_west_white_24dp.png" />
+                                          <Image url="@img/outline_west_white_24dp.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
