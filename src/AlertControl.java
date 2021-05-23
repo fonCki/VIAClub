@@ -1,13 +1,18 @@
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.application.Platform;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.Optional;
 
 public class AlertControl {
 
-         ///////////////////INFORMATION BOX//////////////////////////////////////////////////
+
+    ///////////////////INFORMATION BOX//////////////////////////////////////////////////
 
          //By specifying a null headerMessage String, we cause the dialog to not have a header
         public static void infoBox(String infoMessage, String titleBar) {
@@ -20,6 +25,7 @@ public class AlertControl {
             alert.setHeaderText(headerMessage);
             alert.setContentText(infoMessage);
             alert.showAndWait();
+
         }
         ////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,6 +40,7 @@ public class AlertControl {
             alert.setHeaderText(headerMessage);
             alert.setContentText(errorMessage);
             alert.showAndWait();
+
         }
        ////////////////////////////////////////////////////////////////////////////////////
 
@@ -52,6 +59,7 @@ public class AlertControl {
                 return true;
             } else
                 return false;
+
         }
         ////////////////////////////////////////////////////////////////////////////////////
 
@@ -63,10 +71,12 @@ public class AlertControl {
         public static void warningBox(String warningMessage, String titleBar, String headerMessage) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle(titleBar);
-            alert.setHeaderText(headerMessage);
             alert.setContentText(warningMessage);
+            alert.setHeaderText(headerMessage);
             alert.showAndWait();
         }
         ////////////////////////////////////////////////////////////////////////////////////
+
+
 }
 

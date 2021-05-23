@@ -1,0 +1,128 @@
+.parent {
+    -fx-background-color: #fff;
+}
+
+.sidebar{
+    -fx-background-color: #333645;
+}
+
+.btns {
+    -fx-background-color: transparent;
+}
+
+.btns:hover {
+    -fx-background-color: #202332;
+}
+
+
+////////////////
+.cards {
+    -fx-background-color:  #FFB304;
+    -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 1);
+}
+
+.cards:hover {
+    -fx-background-color:  #eaa300;
+}
+
+
+
+
+.text-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7c8184;
+}
+
+
+
+.check-box {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7c8184;
+
+
+}
+
+
+
+
+/*Table Handle*/
+
+.table-view{
+
+    -fx-background-color:transparent;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 1;
+}
+
+.table-match {
+    -fx-base:  #99FF99;
+    -fx-selection-bar-non-focused: rgba(119,221,119,0.3);
+}
+
+.table-players {
+    -fx-base:  #76DDFF;
+    -fx-selection-bar-non-focused: rgba(0,162,211,0.3);
+}
+
+.table-view .column-header-background{
+    -fx-border-color: transparent transparent rgba(255,255,255,0.3) transparent;
+    -fx-border-width: 1;
+    -fx-background-insets: 0;
+}
+
+.table-match .column-header-background{
+     -fx-background-color: #77DD77;
+}
+
+.table-players .column-header-background{
+     -fx-background-color: #00A2D3;
+}
+
+
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 25;
+    -fx-border-width: 0 0 0 0;
+    -fx-text-fill: fff;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 14px;
+    -fx-font-weight:bold;
+    -fx-font-family:"VIA Type", Helvetica, Arial, sans-serif;
+    -fx-text-fill: fff;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+}
+
+.table-cell {
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-font-family:"VIA Type", Helvetica, Arial, sans-serif;
+    -fx-text-fill: #7c8184;
+    -fx-alignment: center;
+}
+
+.table-match:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: rgba(119,221,119,0.3);
+    -fx-table-cell-border-color: transparent;
+
+}
+
+.table-players:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: rgba(0,162,211,0.3);
+    -fx-table-cell-border-color: transparent;
+
+}
+/*
+#tableMatches .column-header-background{
+                  -fx-background-color:   #77DD77;
+                  -fx-border-color: transparent transparent rgba(255,255,255,0.3) transparent;
+                  -fx-border-width: 1;
+                  -fx-background-insets: 0;
+              }
+
+
+*/
+

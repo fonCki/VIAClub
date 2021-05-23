@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 public class IncludePlayersController {
@@ -18,30 +20,34 @@ public class IncludePlayersController {
     @FXML private TableView tablePlayersPitch;
     @FXML private TableView tablePlayersBench;
 
-    @FXML TableColumn<Player, String> nameAll;
-    @FXML TableColumn<Player, String> lastNameAll;
-    @FXML TableColumn<Player, String> positionAll;
-    @FXML TableColumn<Player, String> statusAll;
+    @FXML private TableColumn<Player, String> nameAll;
+    @FXML private TableColumn<Player, String> lastNameAll;
+    @FXML private TableColumn<Player, String> positionAll;
+    @FXML private TableColumn<Player, Integer> playedAll;
+    @FXML private TableColumn<Player, String> statusAll;
 
-    @FXML TableColumn<Player, String> namePitch;
-    @FXML TableColumn<Player, String> lastNamePitch;
-    @FXML TableColumn<Player, String> positionPitch;
-    @FXML TableColumn<Player, String> statusPitch;
+    @FXML private TableColumn<Player, String> namePitch;
+    @FXML private TableColumn<Player, String> lastNamePitch;
+    @FXML private TableColumn<Player, String> positionPitch;
+    @FXML private TableColumn<Player, Integer> playedPitch;
+    @FXML private TableColumn<Player, String> statusPitch;
 
-    @FXML TableColumn<Player, String> nameBench;
-    @FXML TableColumn<Player, String> lastNameBench;
-    @FXML TableColumn<Player, String> positionBench;
-    @FXML TableColumn<Player, String> statusBench;
+    @FXML private TableColumn<Player, String> nameBench;
+    @FXML private TableColumn<Player, String> lastNameBench;
+    @FXML private TableColumn<Player, String> positionBench;
+    @FXML private TableColumn<Player, Integer> playedBench;
+    @FXML private TableColumn<Player, String> statusBench;
 
-    @FXML private Button addPitch;
-    @FXML private Button removePitch;
-    @FXML private Button addBench;
-    @FXML private Button removeBench;
+    @FXML private JFXButton addPitch;
+    @FXML private JFXButton removePitch;
+    @FXML private JFXButton addBench;
+    @FXML private JFXButton removeBench;
 
-    @FXML private Button save;
+    @FXML private JFXButton done;
 
     private Match match;
     private PlayerList playerList;
+    private MatchList matchList;
 
     private HashSet<Integer> availablePlayers = new HashSet<Integer>();
     private HashSet<Integer> pitchPlayers;
@@ -49,11 +55,9 @@ public class IncludePlayersController {
 
 
     public void updateTables() {
-        System.out.println(match);
 
         tableFullPlayers.getItems().clear();
         for (int playerId : availablePlayers) {
-
             tableFullPlayers.getItems().add(playerList.getPlayerByPlayerId(playerId));
         }
 
@@ -79,8 +83,9 @@ public class IncludePlayersController {
         if (nameAll != null) {
             nameAll.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
             lastNameAll.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
-            statusAll.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             positionAll.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
+            playedAll.setCellValueFactory(new PropertyValueFactory<Player, Integer>("timesNoStop"));
+            statusAll.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             tableFullPlayers.getItems().clear();
         } else {
             nameAll = new TableColumn<>();
@@ -89,8 +94,9 @@ public class IncludePlayersController {
         if (namePitch != null) {
             namePitch.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
             lastNamePitch.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
-            statusPitch.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             positionPitch.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
+            playedPitch.setCellValueFactory(new PropertyValueFactory<Player, Integer>("timesNoStop"));
+            statusPitch.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             tablePlayersPitch.getItems().clear();
         } else {
             namePitch = new TableColumn<>();
@@ -99,8 +105,9 @@ public class IncludePlayersController {
         if (nameBench != null) {
             nameBench.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
             lastNameBench.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
-            statusBench.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             positionBench.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
+            playedBench.setCellValueFactory(new PropertyValueFactory<Player, Integer>("timesNoStop"));
+            statusBench.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             tablePlayersBench.getItems().clear();
         } else {
             nameBench = new TableColumn<>();
@@ -125,17 +132,33 @@ public class IncludePlayersController {
             benchPlayers = match.getPlayersBench();
         }
 
-        for (int i = 0; i < playerList.getSize(); i++) {
-          //  if (!benchPlayers.contains(i) && pitchPlayers.contains(i))
-            availablePlayers.add(i); /// ERAGSDFV CORREGIR ESTO URGENTE!! FEO FEO!!
+        ///Differents options depends the kind of match///
+        System.out.println(match.getKind() + "ESTE ESSSSS");
+        if (match.getKind().equals("Cup") || match.getKind().equals("League")) {
+            for (int i = 0; i < playerList.getSize(); i++) {
+                if (playerList.getPlayerByPlayerId(i).systemStatus.isAvailable()) {
+                    availablePlayers.add(i);
+                }
+            }
+            } else {
+            for (int i = 0; i < playerList.getSize(); i++) {
+                if (!(playerList.getPlayerByPlayerId(i).systemStatus.isDeleted())) {
+                    availablePlayers.add(i);
+                }
+            }
         }
+        availablePlayers.removeAll(pitchPlayers);
+        availablePlayers.removeAll(benchPlayers);
+
         updateTables();
 
     }
 
-    public void transferData(Match match, PlayerList playerList) {
+    public void transferData(Match match, PlayerList playerList, MatchList matchList) {
         this.match = match;
+        this.matchList = matchList;
         this.playerList = playerList;
+        PlayerListManager.updateTimeNoStop(match, playerList, matchList);
         initArrayPlayers();
     }
 
@@ -178,8 +201,8 @@ public class IncludePlayersController {
 
     }
 
-    public void save(ActionEvent e) {
-        Stage stage = (Stage) save.getScene().getWindow();
+    public void done(ActionEvent e) {
+        Stage stage = (Stage) done.getScene().getWindow();
         stage.close();
     }
 

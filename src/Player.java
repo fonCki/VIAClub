@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Player implements Serializable {
     public SystemStatus systemStatus;
@@ -11,7 +12,7 @@ public class Player implements Serializable {
     private int number;
     private HashSet<String> position;
     private String status;
-
+    private int timesNoStop;
 
     public Player(int playerId){
         this.playerId = playerId;
@@ -27,6 +28,7 @@ public class Player implements Serializable {
         this.number = number;
         this.position = position;
         this.status = status;
+        this.timesNoStop = 0;
     }
 
 
@@ -66,8 +68,21 @@ public class Player implements Serializable {
         this.number = number;
     }
 
-    public HashSet<String> getPosition() {
-        return this.position;
+    public String getPosition() {
+        String stringReturn = "";
+        if (this.position.size() == 0) {// Never could happend, but is a cotnrol
+            return stringReturn;
+        } else if (this.position.size() == 1) {
+          Iterator iterator = this.position.iterator();
+          stringReturn += (iterator.next());
+        } else {
+            String tempString = "";
+            for (String element: this.position){
+                tempString += element + ", ";
+            }
+            stringReturn= tempString.substring(0, tempString.length() - 2);
+        }
+        return stringReturn;
     }
 
     public void setPosition(HashSet<String> position) {
@@ -88,6 +103,18 @@ public class Player implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int getTimesNoStop() {
+        return timesNoStop;
+    }
+
+    public void resetTimeNoStop() {
+        this.timesNoStop = 0;
+    }
+    public void addTimesNoStop() {
+        this.timesNoStop++;
+    }
+
 
     @Override
     public String toString() {

@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="SelectableNode">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Downloads/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0/de/jensd/fx/glyphs/browser/SelectableNode.class" />
+      <root url="file://$USER_HOME$/Downloads/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0/de/jensd/fx/glyphs/browser/GlyphsPack.class" />
+      <root url="file://$USER_HOME$/Downloads/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0/de/jensd/fx/glyphs/browser/GlyphsPack$Type.class" />
+      <root url="file://$USER_HOME$/Downloads/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0/de/jensd/fx/glyphs/browser/GlyphsGridCell.class" />
+      <root url="file://$USER_HOME$/Downloads/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0/de/jensd/fx/glyphs/browser/GlyphsBrowserAppModel.class" />
+      <root url="file://$USER_HOME$/Downloads/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0/de/jensd/fx/glyphs/browser/GlyphsBrowserApp.class" />
+      <root url="file://$USER_HOME$/Downloads/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0/de/jensd/fx/glyphs/browser/GlyphsBrowser.class" />
+      <root url="file://$USER_HOME$/Downloads/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0/de/jensd/fx/glyphs/browser/GlyphIconInfo.class" />
+      <root url="file://$USER_HOME$/Downloads/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0/de/jensd/fx/glyphs/browser/FontInfo.class" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

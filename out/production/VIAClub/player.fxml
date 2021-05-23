@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -11,21 +13,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayerControler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayerControler">
    <children>
-      <VBox layoutX="23.0" layoutY="25.0" prefHeight="600.0" prefWidth="400.0">
+      <VBox prefHeight="600.0" prefWidth="400.0" styleClass="sidebar" stylesheets="@test.css">
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #FFFBD9;">
+            <AnchorPane prefHeight="175.0" prefWidth="400.0" style="-fx-background-color: #00A2D3;">
                <children>
-                  <Label fx:id="uid" layoutX="361.0" layoutY="5.0" text="ID#:" />
+                  <Label fx:id="uid" layoutX="328.0" layoutY="7.0" text="ID#:" />
                   <TextField fx:id="nameField" layoutX="233.0" layoutY="36.0" prefHeight="26.0" prefWidth="120.0" promptText="Name">
                      <font>
                         <Font name="System Italic" size="18.0" />
@@ -39,86 +38,176 @@
                         <Image url="@avatar.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="age" editable="false" layoutX="234.0" layoutY="131.0" prefHeight="26.0" prefWidth="120.0" promptText="age" />
+                  <TextField fx:id="age" editable="false" layoutX="234.0" layoutY="131.0" prefHeight="26.0" prefWidth="120.0" promptText="age" style="-fx-background-color: transparent transparent;" stylesheets="@test.css">
+                     <font>
+                        <Font name="VIA Type Regular" size="13.0" />
+                     </font></TextField>
                </children>
             </AnchorPane>
-            <GridPane alignment="CENTER" prefHeight="339.0" prefWidth="400.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="146.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="254.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+            <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="200.0" styleClass="btns">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="200.0" text="Number" GridPane.rowIndex="1">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@outline_event_white_24dp.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="105.0" text="Date of Birth" textFill="#7c8184">
+                     <font>
+                        <Font name="VIA Type Regular" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></Label>
+                  <DatePicker fx:id="dateOfBirthField" prefHeight="26.0" prefWidth="150.0" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="400.0" styleClass="btns">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@outline_filter_9_plus_white_24dp.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefWidth="105.0" text="Number" textFill="#7c8184">
+                     <font>
+                        <Font name="VIA Type Regular" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></Label>
+                  <ComboBox fx:id="number" prefWidth="150.0" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="200.0" styleClass="btns">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@outline_radar_white_24dp.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefHeight="23.0" prefWidth="105.0" text="Position" textFill="#7c8184">
                      <font>
                         <Font size="18.0" />
-                     </font></Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="202.0" text="Date of Birth">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Label>
-                  <DatePicker fx:id="dateOfBirthField" prefHeight="26.0" prefWidth="150.0" GridPane.columnIndex="1" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="144.0" text="Position" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Label>
-                  <VBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="258.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></Label>
+                  <FlowPane alignment="CENTER" prefHeight="94.0" prefWidth="245.0" vgap="6.0">
                      <children>
-                        <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" vgap="6.0">
-                           <children>
-                              <RadioButton fx:id="available" mnemonicParsing="false" prefHeight="18.0" prefWidth="120.0" selected="true" text="Available">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="status" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="unavailable" mnemonicParsing="false" prefHeight="18.0" prefWidth="120.0" text="Unavailable" toggleGroup="$status" />
-                              <RadioButton fx:id="suspended" mnemonicParsing="false" prefHeight="18.0" prefWidth="120.0" text="Suspended" toggleGroup="$status" />
-                              <RadioButton fx:id="injured" mnemonicParsing="false" prefHeight="18.0" prefWidth="120.0" text="Injured" toggleGroup="$status" />
-                           </children>
-                        </FlowPane>
-                     </children>
-                  </VBox>
-                  <ComboBox fx:id="number" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" vgap="6.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <CheckBox fx:id="goalkeeper" mnemonicParsing="false" prefHeight="18.0" prefWidth="120.0" text="Goalkeeper">
+                        <CheckBox fx:id="goalkeeper" mnemonicParsing="false" prefHeight="19.0" prefWidth="100.0" text="Goalkeeper">
                            <font>
-                              <Font size="12.0" />
+                              <Font name="VIA Type Regular" size="13.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="defender" mnemonicParsing="false" prefHeight="18.0" prefWidth="120.0" text="Defender">
+                        <CheckBox fx:id="defender" mnemonicParsing="false" prefHeight="18.0" prefWidth="100.0" text="Defender" textFill="#7c8184">
                            <font>
-                              <Font size="12.0" />
+                              <Font name="VIA Type Regular" size="13.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="midfielder" lineSpacing="20.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="120.0" text="Midfielder" textAlignment="JUSTIFY">
+                        <CheckBox fx:id="midfielder" lineSpacing="20.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="100.0" text="Midfielder" textAlignment="JUSTIFY">
                            <font>
-                              <Font size="12.0" />
+                              <Font name="VIA Type Regular" size="13.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="forward" mnemonicParsing="false" prefHeight="18.0" prefWidth="120.0" text="Forward">
+                        <CheckBox fx:id="forward" mnemonicParsing="false" prefHeight="18.0" prefWidth="100.0" text="Forward" textFill="#7c8184">
                            <font>
-                              <Font size="12.0" />
+                              <Font name="VIA Type Regular" size="13.0" />
                            </font>
                         </CheckBox>
                      </children>
                   </FlowPane>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="144.0" text="Status" GridPane.rowIndex="3">
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="388.0" styleClass="btns">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@outline_no_accounts_white_24dp.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label contentDisplay="CENTER" prefWidth="105.0" text="Status" textFill="#7c8184">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
                   </Label>
+                  <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="303.0" spacing="5.0">
+                     <children>
+                        <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" vgap="6.0">
+                           <children>
+                              <RadioButton fx:id="available" mnemonicParsing="false" prefHeight="18.0" prefWidth="110.0" selected="true" text="Available" textFill="#7c8184">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="status" />
+                                 </toggleGroup>
+                                 <font>
+                                    <Font name="VIA Type Regular" size="13.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="unavailable" mnemonicParsing="false" prefHeight="18.0" prefWidth="110.0" text="Unavailable" textFill="#7c8184" toggleGroup="$status">
+                                 <font>
+                                    <Font name="VIA Type Regular" size="13.0" />
+                                 </font></RadioButton>
+                              <RadioButton fx:id="suspended" mnemonicParsing="false" prefHeight="18.0" prefWidth="110.0" text="Suspended" textFill="#7c8184" toggleGroup="$status" />
+                              <RadioButton fx:id="injured" mnemonicParsing="false" prefHeight="18.0" prefWidth="110.0" text="Injured" textFill="#7c8184" toggleGroup="$status" />
+                           </children>
+                        </FlowPane>
+                     </children>
+                  </VBox>
                </children>
-            </GridPane>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="200.0" spacing="40.0">
                <children>
-                  <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="Save" />
-                  <Button fx:id="cancel" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+                  <JFXButton fx:id="cancel" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" prefHeight="45.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #00A2D3; -fx-background-radius: 0px;" text="Cancel" textFill="WHITE">
+                     <font>
+                        <Font name="VIA Type Regular" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="save" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#save" prefHeight="45.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #00A2D3; -fx-background-radius: 0px;" text="Save" textFill="WHITE">
+                     <font>
+                        <Font name="VIA Type Regular" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
                </children>
             </HBox>
          </children>

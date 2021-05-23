@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class PlayerList implements Serializable {
     private ArrayList<Player> playersList;
@@ -25,35 +26,31 @@ public class PlayerList implements Serializable {
     }
 
 
-    public Player getPlayerByNumber(int number) {
-        for (Player player: playersList) {
-            if (player.getNumber() == number)
-                return player;
-        }
-        return null;
-    }
+
 
     public Player getPlayerByPlayerId(int playerId) {
         return playersList.get(playerId);
     }
 
-    public ArrayList<Integer> getAvailableNumbers() {
-        ArrayList<Integer> tempArray = new ArrayList<Integer>();
-        for (int i=1; i < 100; i++) {
-            if (getPlayerByNumber(i) == null ||
-                    getPlayerByNumber(i).systemStatus.isDeleted()){
-                tempArray.add(i);
+    public HashSet<Integer> getAvailableNumbers() {
+        HashSet<Integer> tempHashset = new HashSet<Integer>();
+        for (int i=1; i < playersList.size() + 50; i++) {
+            tempHashset.add(i);
+        }
+        for (Player player: playersList) {
+            if (!(player.systemStatus.isDeleted())) {
+                tempHashset.remove(player.getNumber());
             }
         }
-        return tempArray;
+        return tempHashset;
     }
 
+
     public int getSize() {
-        System.out.println(playersList.size());
         return playersList.size();
     }
 
-    public int getPlayers() { // All except deleted
+    public int getNumberOfPlayers() { // All except deleted
         int c=0;
         for (Player player: playersList) {
             if (!(player.systemStatus.isDeleted()))
@@ -71,6 +68,10 @@ public class PlayerList implements Serializable {
             }
         }
         return -1;
+    }
+
+    public boolean isEmpty() {
+        return (getNumberOfPlayers() < 1);
     }
 
 

@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.event.ActionEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,27 +19,28 @@ import java.util.HashSet;
 
 
 public class MatchController {
-    @FXML Label matchID;
-    @FXML TextField opponent;
-    @FXML DatePicker date;
-    @FXML TextField place;
-    @FXML ToggleGroup kind;
-    @FXML RadioButton cup;
-    @FXML RadioButton league;
-    @FXML RadioButton friendly;
-    @FXML TableView<Player> playersPitch;
-    @FXML TableView<Player> playersBench;
-    @FXML TableColumn<Player, String> namePitch;
-    @FXML TableColumn<Player, String> lastNamePitch;
-    @FXML TableColumn<Player, String> positionPitch;
-    @FXML TableColumn<Player, String> statusPitch;
-    @FXML TableColumn<Player, String> nameBench;
-    @FXML TableColumn<Player, String> lastNameBench;
-    @FXML TableColumn<Player, String> positionBench;
-    @FXML TableColumn<Player, String> statusBench;
-    @FXML Button save;
-    @FXML Button cancel;
-    @FXML Button addPlayers;
+    @FXML private AnchorPane mainAnchorPane;
+    @FXML private Label matchID;
+    @FXML private TextField opponent;
+    @FXML private DatePicker date;
+    @FXML private TextField place;
+    @FXML private ToggleGroup kind;
+    @FXML private RadioButton cup;
+    @FXML private RadioButton league;
+    @FXML private RadioButton friendly;
+    @FXML private TableView<Player> playersPitch;
+    @FXML private TableView<Player> playersBench;
+    @FXML private TableColumn<Player, String> namePitch;
+    @FXML private TableColumn<Player, String> lastNamePitch;
+    @FXML private TableColumn<Player, String> positionPitch;
+    @FXML private TableColumn<Player, Integer> numberPitch;
+    @FXML private TableColumn<Player, String> nameBench;
+    @FXML private TableColumn<Player, String> lastNameBench;
+    @FXML private TableColumn<Player, String> positionBench;
+    @FXML private TableColumn<Player, Integer> numberBench;
+    @FXML private JFXButton save;
+    @FXML private JFXButton cancel;
+    @FXML private JFXButton addPlayers;
 
     private int uid;
     private MatchList matchList;
@@ -46,22 +50,22 @@ public class MatchController {
     public void initialize() {
        // this.playerList = PlayerListManager.getPlayerListFromFile();
         //Inicio las columnas)
-        if (namePitch != null) {
+        if (numberPitch != null) { //Change This
             namePitch.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
             lastNamePitch.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
-            statusPitch.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             positionPitch.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
+            numberPitch.setCellValueFactory(new PropertyValueFactory<Player, Integer>("number"));
             playersPitch.getItems().clear();
             playersBench.getItems().clear();
         } else {
             namePitch = new TableColumn<>();
         }
 
-        if (nameBench != null) {
+        if (numberBench != null) { // CVAMBIARRR
             nameBench.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
             lastNameBench.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
-            statusBench.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             positionBench.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
+            numberBench.setCellValueFactory(new PropertyValueFactory<Player, Integer>("number"));
             playersBench.getItems().clear();
             playersBench.getItems().clear();
         } else {
@@ -147,6 +151,7 @@ public class MatchController {
                                 ((RadioButton) kind.getSelectedToggle()).getText());
             if (match != null) { // Copy the players if the action is an update
                 updatePlayersMatch(newMatch, match);
+                newMatch.setMatchUID(match.getMatchUID()); // If is an update
             }
             MatchListManager.saveMatch(matchList, newMatch, uid);
             match = newMatch;
@@ -179,16 +184,22 @@ public class MatchController {
 
             //Sharing data!
             IncludePlayersController includePlayersController = fxmlLoader.getController();
-            includePlayersController.transferData(match, playerList); // Comparto
+            includePlayersController.transferData(match, playerList, matchList); // Comparto
 
+            thirdStage.setTitle("Players Control");
+            thirdStage.setScene(new Scene(root, 1024, 600));
 
-
-            thirdStage.setTitle("Players");
-            thirdStage.setScene(new Scene(root, 850, 855));
+            //Change the modality of the fist main to disable
+            Stage  secondStage= (Stage) mainAnchorPane.getScene().getWindow(); // I get the first stage.
+            thirdStage.initOwner(secondStage);
+            thirdStage.initModality(Modality.WINDOW_MODAL);
+            mainAnchorPane.setDisable(true);
+            ///////////////////////////////////////////////////
 
             thirdStage.showAndWait();
-
+            mainAnchorPane.setDisable(false);
             updateTables();
+
 
         }
 

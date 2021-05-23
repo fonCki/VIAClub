@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -6,6 +7,7 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class PlayerControler {
@@ -19,8 +21,8 @@ public class PlayerControler {
     @FXML private CheckBox defender;
     @FXML private CheckBox midfielder;
     @FXML private CheckBox forward;
-    @FXML private Button save;
-    @FXML private Button cancel;
+    @FXML private JFXButton save;
+    @FXML private JFXButton cancel;
     @FXML private RadioButton available;
     @FXML private RadioButton unavailable;
     @FXML private RadioButton suspended;
@@ -38,7 +40,7 @@ public class PlayerControler {
 
     public void transferData(Player player, PlayerList playerList, String action) {
         this.playerList = playerList;
-        ArrayList<Integer> availableNumbers = playerList.getAvailableNumbers(); // Create an array of available numbers
+        HashSet<Integer> availableNumbers = playerList.getAvailableNumbers(); // Create an array of available numbers
         number.getItems().addAll(availableNumbers);
 
         if (action.equals("add")) {
@@ -120,6 +122,7 @@ public class PlayerControler {
                 RadioButton selectedToggle = ((RadioButton) status.getSelectedToggle());
                 player.setStatus(selectedToggle.getText());
                 player.systemStatus.setStatus(selectedToggle.getText());
+
                 ///////
                 PlayerListManager.savePlayer(playerList, player, playerID);
                 Stage stage = (Stage) save.getScene().getWindow();

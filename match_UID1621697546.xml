@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<match>
+	<opponent>Julio</opponent>
+	<date>2021-05-12</date>
+	<place>fds</place>
+	<kind>Cup</kind>
+	<players>
+		<benchPlayer>
+			<number>1</number>
+			<name>Jose</name>
+			<lastName>fsd</lastName>
+			<position>Defender</position>
+		</benchPlayer>
+	</players>
+</match>

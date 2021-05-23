@@ -1,95 +1,238 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MatchController">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="724.0" style="-fx-background-color: fff;" stylesheets="@test.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MatchController">
    <children>
-      <Label layoutX="163.0" layoutY="40.0" prefHeight="51.0" prefWidth="244.0" text="Via CLUB  Vs" textFill="#150adc">
-         <font>
-            <Font size="41.0" />
-         </font>
-      </Label>
-      <TextField fx:id="opponent" layoutX="414.0" layoutY="37.0" prefHeight="3.0" prefWidth="235.0" promptText="opponent">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </TextField>
-      <Label layoutX="45.0" layoutY="143.0" text="Date" textFill="#150adc">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <DatePicker fx:id="date" layoutX="102.0" layoutY="143.0" />
-      <TableView fx:id="playersPitch" layoutX="419.0" layoutY="182.0" prefHeight="311.0" prefWidth="379.0">
-        <columns>
-          <TableColumn fx:id="namePitch" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="lastNamePitch" prefWidth="75.0" text="Last Name" />
-            <TableColumn fx:id="positionPitch" prefWidth="75.0" text="Position" />
-            <TableColumn fx:id="statusPitch" prefWidth="75.0" text="Status" />
-        </columns>
-      </TableView>
-      <Label layoutX="585.0" layoutY="143.0" text="Starters" textFill="#150adc">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <TableView fx:id="playersBench" layoutX="22.0" layoutY="333.0" prefHeight="159.0" prefWidth="379.0">
-         <columns>
-            <TableColumn fx:id="nameBench" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="lastNameBench" prefWidth="75.0" text="Last Name" />
-            <TableColumn fx:id="positionBench" prefWidth="75.0" text="Position" />
-            <TableColumn fx:id="statusBench" prefWidth="75.0" text="Status" />
-         </columns>
-      </TableView>
-      <Label layoutX="150.0" layoutY="299.0" text="Bench  Players" textFill="#150adc">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="45.0" layoutY="182.0" text="Place" textFill="#150adc">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="45.0" layoutY="241.0" prefHeight="26.0" prefWidth="46.0" text="Kind" textFill="#150adc">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <TextField fx:id="place" layoutX="102.0" layoutY="182.0" prefHeight="26.0" prefWidth="186.0" promptText="Ex. VIa Stadium" />
-      <RadioButton fx:id="cup" layoutX="236.0" layoutY="236.0" mnemonicParsing="false" rotate="-33.7" selected="true" text="Cup" textFill="#150adc">
-         <toggleGroup>
-            <ToggleGroup fx:id="kind" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="league" layoutX="171.0" layoutY="232.0" mnemonicParsing="false" rotate="-33.7" text="League" textFill="#150adc" toggleGroup="$kind" />
-      <RadioButton fx:id="friendly" layoutX="106.0" layoutY="230.0" mnemonicParsing="false" rotate="-33.7" selected="true" text="Friendly" textFill="#150adc" toggleGroup="$kind" />
-      <Label fx:id="matchID" layoutX="735.0" layoutY="31.0" text="matchID" />
-      <Separator layoutX="12.0" layoutY="114.0" prefHeight="0.0" prefWidth="795.0" />
-      <Separator layoutX="22.0" layoutY="288.0" prefHeight="3.0" prefWidth="379.0" />
-      <HBox alignment="CENTER" layoutX="22.0" layoutY="505.0" prefHeight="100.0" prefWidth="785.0">
+      <Label fx:id="matchID" layoutX="174.0" layoutY="633.0" text="matchID" />
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="724.0" style="-fx-background-color: F4FFEB;" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="addPlayers" mnemonicParsing="false" onAction="#addPlayers" prefHeight="40.0" prefWidth="120.0" text="Add Players" />
-            <Button fx:id="save" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="120.0" text="Save">
+            <Label alignment="TOP_RIGHT" prefWidth="250.0" text="VIA Club" textFill="#7c8184">
+               <font>
+                  <Font name="VIA Type Bold" size="29.0" />
+               </font>
                <HBox.margin>
-                  <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+                  <Insets />
                </HBox.margin>
-            </Button>
-            <Button fx:id="cancel" layoutX="403.0" layoutY="40.0" mnemonicParsing="false" onAction="#cancel" prefHeight="40.0" prefWidth="120.0" text="Cancel" />
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </Label>
+            <Label text="vs" textFill="#7c8184">
+               <font>
+                  <Font name="VIA Type Bold" size="29.0" />
+               </font>
+            </Label>
+            <TextField fx:id="opponent" prefHeight="52.0" prefWidth="250.0" promptText="Write Opponent..." styleClass="text-header" stylesheets="@test.css">
+               <font>
+                  <Font name="VIA Type Regular" size="28.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
          </children>
       </HBox>
-      <Separator layoutX="24.0" layoutY="504.0" prefHeight="3.0" prefWidth="771.0" />
+      <VBox layoutY="75.0" prefHeight="525.0" prefWidth="362.0" style="-fx-background-color: #333645;" styleClass="sidebar">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="200.0" styleClass="btns">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@outline_event_white_24dp.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefWidth="70.0" text="Date" textFill="#7c8184">
+                     <font>
+                        <Font name="VIA Type Regular" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Label>
+                  <DatePicker fx:id="date" prefWidth="188.0" />
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="200.0" styleClass="btns">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@outline_location_on_white_24dp.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefWidth="70.0" text="Place" textFill="#7c8184">
+                     <font>
+                        <Font name="VIA Type Regular" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="place" prefHeight="26.0" prefWidth="188.0" promptText="Ex. VIa Stadium" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="200.0" styleClass="btns">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@outline_style_white_24dp.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefHeight="26.0" prefWidth="70.0" text="Kind" textFill="#7c8184">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="cup" mnemonicParsing="false" rotate="-39.8" selected="true" text="Cup" textFill="#7c8184">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="kind" />
+                     </toggleGroup>
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
+                  </RadioButton>
+                  <RadioButton fx:id="league" mnemonicParsing="false" text="League" textFill="#7c8184" toggleGroup="$kind">
+                     <HBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="friendly" mnemonicParsing="false" selected="true" text="Friendly" textFill="#7c8184" toggleGroup="$kind" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               <children>
+                  <JFXButton fx:id="addButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#addPlayers" prefHeight="45.0" prefWidth="245.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Add/Delete Player" textFill="WHITE">
+                     <font>
+                        <Font name="VIA Type Regular" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@outline_person_add_white_24dp.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="104.0" prefWidth="362.0" stylesheets="@test.css">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               <children>
+                  <JFXButton fx:id="cancel" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" prefHeight="45.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Cancel" textFill="WHITE">
+                     <font>
+                        <Font name="VIA Type Regular" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="save" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#save" prefHeight="45.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Save" textFill="WHITE">
+                     <font>
+                        <Font name="VIA Type Regular" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="362.0" layoutY="75.0" prefHeight="525.0" prefWidth="362.0">
+         <children>
+            <Label prefHeight="27.0" prefWidth="362.0" style="-fx-background-color: #77DD77 #77DD77;" text="Starters" textFill="WHITE">
+               <font>
+                  <Font name="VIA Type Bold" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="-1.0" />
+               </VBox.margin>
+            </Label>
+            <TableView fx:id="playersPitch" prefHeight="307.0" prefWidth="364.0" styleClass="table-match" stylesheets="@test.css">
+              <columns>
+                <TableColumn fx:id="namePitch" prefWidth="70.0" text="Name" />
+                  <TableColumn fx:id="lastNamePitch" prefWidth="75.0" text="Last Name" />
+                  <TableColumn fx:id="positionPitch" prefWidth="155.0" text="Position" />
+                <TableColumn fx:id="numberPitch" prefWidth="60.0" text="Number" />
+              </columns>
+               <VBox.margin>
+                  <Insets left="-1.0" right="-1.0" />
+               </VBox.margin>
+            </TableView>
+            <Label prefHeight="27.0" prefWidth="362.0" style="-fx-background-color: #77DD77 #77DD77;" text="Bench Players" textFill="WHITE">
+               <font>
+                  <Font name="VIA Type Bold" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="-1.0" />
+               </VBox.margin>
+            </Label>
+            <TableView fx:id="playersBench" prefHeight="166.0" prefWidth="364.0" styleClass="table-match" stylesheets="@test.css">
+               <columns>
+                  <TableColumn fx:id="nameBench" prefWidth="70.0" text="Name" />
+                  <TableColumn fx:id="lastNameBench" prefWidth="75.0" text="Last Name" />
+                  <TableColumn fx:id="positionBench" prefWidth="155.0" text="Position" />
+                  <TableColumn fx:id="numberBench" prefWidth="60.0" text="Number" />
+               </columns>
+               <VBox.margin>
+                  <Insets left="-1.0" right="-1.0" />
+               </VBox.margin>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

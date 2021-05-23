@@ -1,61 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Separator?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="843.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IncludePlayersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" stylesheets="@test.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IncludePlayersController">
    <children>
-      <TableView fx:id="tableFullPlayers" layoutX="14.0" layoutY="81.0" prefHeight="704.0" prefWidth="316.0">
-        <columns>
-          <TableColumn fx:id="nameAll" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="lastNameAll" prefWidth="75.0" text="Last Name" />
-            <TableColumn fx:id="positionAll" prefWidth="75.0" text="Position" />
-            <TableColumn fx:id="statusAll" prefWidth="75.0" text="Status" />
-        </columns>
-      </TableView>
-      <TableView fx:id="tablePlayersPitch" layoutX="410.0" layoutY="67.0" prefHeight="359.0" prefWidth="332.0">
-         <columns>
-            <TableColumn fx:id="namePitch" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="lastNamePitch" prefWidth="75.0" text="Last Name" />
-            <TableColumn fx:id="statusPitch" prefWidth="75.0" text="Status" />
-            <TableColumn fx:id="positionPitch" prefWidth="75.0" text="Position" />
-         </columns>
-      </TableView>
-      <TableView fx:id="tablePlayersBench" layoutX="410.0" layoutY="503.0" prefHeight="211.0" prefWidth="316.0">
-         <columns>
-            <TableColumn fx:id="nameBench" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="lastNameBench" prefWidth="75.0" text="Last Name" />
-            <TableColumn fx:id="positionBench" prefWidth="75.0" text="Position" />
-            <TableColumn fx:id="statusBench" prefWidth="75.0" text="Status" />
-         </columns>
-      </TableView>
-      <Text fill="#150adc" layoutX="16.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available players">
-         <font>
-            <Font name="VIA Type Regular" size="41.0" />
-         </font>
-      </Text>
-      <Text fill="#150adc" layoutX="529.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Starters" wrappingWidth="77.6904296875">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Text>
-      <Text fill="#150adc" layoutX="502.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bench Players" wrappingWidth="130.6904296875">
-         <font>
-            <Font name="VIA Type Regular" size="20.0" />
-         </font>
-      </Text>
-      <Button fx:id="addPitch" layoutX="344.0" layoutY="181.0" mnemonicParsing="false" onAction="#AllMoveToPitch" text="----&gt;" />
-      <Button fx:id="removePitch" layoutX="344.0" layoutY="234.0" mnemonicParsing="false" onAction="#PitchMoveToAll" text="&lt;----" />
-      <Button fx:id="addBench" layoutX="344.0" layoutY="553.0" mnemonicParsing="false" onAction="#AllMoveToBench" text="----&gt;" />
-      <Button fx:id="removeBench" layoutX="344.0" layoutY="609.0" mnemonicParsing="false" onAction="#BenchMoveToAll" text="&lt;----" />
-      <Button fx:id="save" layoutX="507.0" layoutY="734.0" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="120.0" text="SAVE" />
-      <Separator layoutX="412.0" layoutY="453.0" prefHeight="2.0" prefWidth="312.0" />
-      <Separator layoutX="16.0" layoutY="13.0" prefHeight="3.0" prefWidth="728.0" />
-      <Separator layoutX="16.0" layoutY="817.0" prefHeight="3.0" prefWidth="728.0" />
+      <HBox prefHeight="600.0" prefWidth="1024.0" style="-fx-background-color: F4FFEB F4FFEB;">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="452.0">
+               <children>
+                  <Label minHeight="-Infinity" prefHeight="27.0" prefWidth="400.0" style="-fx-background-color: #77DD77 #77DD77;" text="Total Players Availables" textFill="WHITE">
+                     <font>
+                        <Font name="VIA Type Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="-1.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="tableFullPlayers" prefHeight="720.0" prefWidth="400.0" styleClass="table-match">
+                    <columns>
+                      <TableColumn fx:id="nameAll" prefWidth="70.0" text="Name" />
+                      <TableColumn fx:id="lastNameAll" prefWidth="75.0" text="Last Name" />
+                        <TableColumn fx:id="positionAll" prefWidth="85.0" text="Position" />
+                        <TableColumn fx:id="playedAll" prefWidth="60.0" text="Played in a row" />
+                        <TableColumn fx:id="statusAll" prefWidth="110.0" text="Status" />
+                    </columns>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="120.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="474.0" prefWidth="120.0">
+                     <children>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="120.0" spacing="20.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <JFXButton fx:id="addPitch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#AllMoveToPitch" prefHeight="20.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77 #77DD77; -fx-background-radius: 0px;" text="." textFill="WHITE">
+                                 <font>
+                                    <Font name="VIA Type Regular" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@outline_east_white_24dp.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="removePitch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#PitchMoveToAll" prefHeight="20.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77 #77DD77; -fx-background-radius: 0px;" text="." textFill="WHITE">
+                                 <font>
+                                    <Font name="VIA Type Regular" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@outline_west_white_24dp.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="120.0" spacing="20.0">
+                           <children>
+                              <JFXButton fx:id="addBench" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#AllMoveToBench" prefHeight="20.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77 #77DD77; -fx-background-radius: 0px;" text="." textFill="WHITE">
+                                 <font>
+                                    <Font name="VIA Type Regular" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@outline_east_white_24dp.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="removeBench" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#BenchMoveToAll" prefHeight="20.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="." textFill="WHITE">
+                                 <font>
+                                    <Font name="VIA Type Regular" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@outline_west_white_24dp.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="47.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <JFXButton fx:id="done" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#done" prefHeight="45.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Done" textFill="WHITE">
+                     <font>
+                        <Font name="VIA Type Regular" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="452.0">
+               <children>
+                  <Label minHeight="-Infinity" prefHeight="27.0" prefWidth="400.0" style="-fx-background-color: #77DD77 #77DD77;" text="Starters" textFill="WHITE">
+                     <font>
+                        <Font name="VIA Type Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="-1.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="tablePlayersPitch" prefHeight="355.0" prefWidth="400.0" styleClass="table-match">
+                     <columns>
+                        <TableColumn fx:id="namePitch" minWidth="70.0" prefWidth="70.0" text="Name" />
+                        <TableColumn fx:id="lastNamePitch" prefWidth="75.0" text="Last Name" />
+                        <TableColumn fx:id="positionPitch" prefWidth="85.0" text="Position" />
+                        <TableColumn fx:id="playedPitch" prefWidth="60.0" text="Played in a row" />
+                        <TableColumn fx:id="statusPitch" prefWidth="110.0" text="Status" />
+                     </columns>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <Label minHeight="-Infinity" prefHeight="27.0" prefWidth="400.0" style="-fx-background-color: #77DD77 #77DD77;" text="Bench Players" textFill="WHITE">
+                     <font>
+                        <Font name="VIA Type Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="-1.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="tablePlayersBench" prefHeight="230.0" prefWidth="400.0" styleClass="table-match">
+                     <columns>
+                        <TableColumn fx:id="nameBench" prefWidth="70.0" text="Name" />
+                        <TableColumn fx:id="lastNameBench" prefWidth="75.0" text="Last Name" />
+                        <TableColumn fx:id="positionBench" prefWidth="85.0" text="Position" />
+                        <TableColumn fx:id="playedBench" prefWidth="60.0" text="Played in a row" />
+                        <TableColumn fx:id="statusBench" prefWidth="110.0" text="Status" />
+                     </columns>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

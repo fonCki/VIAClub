@@ -1,8 +1,6 @@
 import java.io.Serializable;
-import java.security.SecureRandomParameters;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 public class Match implements Serializable {
@@ -15,6 +13,7 @@ public class Match implements Serializable {
     private HashSet<Integer> playersBench;
     private final int maxPlayersPitch = 11;
     private int maxPlayersBench;
+    private String matchUID;
 
 
     public Match(String opponent, LocalDate date, String place, String kind) {
@@ -22,23 +21,23 @@ public class Match implements Serializable {
         this.date = date;
         this.place = place;
         this.kind = kind;
-        switch (kind.toLowerCase()) {
-            case "league" : {
+        switch (kind) {
+            case "League" : {
                 maxPlayersBench = 6;
                 break;
                 }
-            case "cup" : {
+            case "Cup" : {
                 maxPlayersBench = 5;
                 break;
             }
-            case "friendly" : {
+            case "Friendly" : {
                 maxPlayersBench = 1000;
                 break;
             }
         };
         playersPitch = new HashSet<>(maxPlayersPitch);
         playersBench = new HashSet<>(maxPlayersBench);
-
+        this.matchUID = "UID"+Instant.now().getEpochSecond();
     }
 
     public String getOpponent() {
@@ -96,10 +95,18 @@ public class Match implements Serializable {
     public int getMaxPlayersBench() {
         return this.maxPlayersBench;
     }
+    public String getMatchUID() {
+        return this.matchUID;
+    }
+
+    public void setMatchUID(String matchUID){
+        this.matchUID = matchUID;
+    }
 
     @Override
     public String toString() {
         return "Match----------------------------\n" +
+                "Match UID: " + matchUID + "\n" +
                 "opponent: " + opponent + "\n" +
                 "date: " + date + "\n" +
                 "place: " + place + "\n" +
@@ -118,7 +125,10 @@ public class Match implements Serializable {
                     ((Match) obj).place.equals(place) &&
                     ((Match) obj).kind.equals(kind) &&
                     ((Match) obj).playersPitch.equals(playersPitch) &&
-                    ((Match) obj).playersBench.equals(playersBench);
+                    ((Match) obj).playersBench.equals(playersBench) &&
+                    ((Match) obj).maxPlayersPitch == maxPlayersPitch &&
+                    ((Match) obj).maxPlayersBench == maxPlayersBench &&
+                    ((Match) obj).matchUID.equals(matchUID);
         }
     }
 }
