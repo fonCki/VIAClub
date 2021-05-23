@@ -20,7 +20,6 @@ import java.util.HashSet;
 
 public class MatchController {
     @FXML private AnchorPane mainAnchorPane;
-    @FXML private Label matchID;
     @FXML private TextField opponent;
     @FXML private DatePicker date;
     @FXML private TextField place;
@@ -40,9 +39,8 @@ public class MatchController {
     @FXML private TableColumn<Player, Integer> numberBench;
     @FXML private JFXButton save;
     @FXML private JFXButton cancel;
-    @FXML private JFXButton addPlayers;
 
-    private int uid;
+    private int matchIndex;
     private MatchList matchList;
     private Match match, newMatch;
     private PlayerList playerList;
@@ -89,11 +87,10 @@ public class MatchController {
         this.matchList = matchList;
         this.playerList = playerList;
         if (action.equals("add")) {
-            uid = MatchListManager.getNewPosition(matchList); // Creo un nuevo ID
+            matchIndex = matchList.getNewPosition(); // Creo un nuevo ID
         } else if (action.equals("edit") && match != null) {
             this.match = match;
-            uid = MatchListManager.getPosition(matchList, match);
-            matchID.setText("UID: " + uid);
+            matchIndex = matchList.getIndex(match);
             opponent.setText(match.getOpponent());
             date.setValue(match.getDate());
             place.setText(match.getPlace());
@@ -153,7 +150,7 @@ public class MatchController {
                 updatePlayersMatch(newMatch, match);
                 newMatch.setMatchUID(match.getMatchUID()); // If is an update
             }
-            MatchListManager.saveMatch(matchList, newMatch, uid);
+            matchList.updateMatch(matchIndex, newMatch);
             match = newMatch;
             return true;
         }

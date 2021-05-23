@@ -1,7 +1,4 @@
 package model;
-
-import model.Match;
-import model.MatchList;
 import utils.MyFileHandler;
 
 import java.io.FileNotFoundException;
@@ -12,31 +9,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+/**
+ * This class is a toolbox containing different methods related to match and match lists.
+ * to work with files. all the methods are static.
+ * @author @alfonsoridao
+ * @version 3.1
+ */
+
 public class MatchListManager {
+
+    /**
+     * this method access to the file, and return the Object MatchList.
+     * @return the list of match in MatchList format.
+     */
     public static MatchList getMatchListFromFile()  {
         MatchList matchList = new MatchList();
         try {
-            matchList = (MatchList) MyFileHandler.readFromBinaryFile("model.Match-List.via");
+            matchList = (MatchList) MyFileHandler.readFromBinaryFile("match-List.via");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-/*
-        finally {
-            model.Match matchOne = new model.Match("Boca", LocalDate.now(), "Horsens", "League");
-            model.Match matchTwo = new model.Match("River", LocalDate.now(), "Berlin", "Cup");
-            model.Match matchThree = new model.Match("Lanus", LocalDate.now(), "Moscow", "League");
-            model.Match matchFour = new model.Match("Arsenal", LocalDate.now(), "Buenos Aires", "Friendly");
-            matchList.addMatch(matchOne);
-            matchList.addMatch(matchTwo);
-            matchList.addMatch(matchThree);
-            matchList.addMatch(matchFour);
-        }
-*/
         return matchList;
     }
 
+    /**
+     * Given the match list, this method call MyFileHandler to write the information in the file.
+     * @param matchList the list of matches.
+     */
     public static void writeInFile(MatchList matchList) {
         try {
             MyFileHandler.writeToBinaryFile("model.Match-List.via", matchList);
@@ -45,6 +46,8 @@ public class MatchListManager {
         }
 
     }
+
+    /*
     public static void addMatch(MatchList matchList, Match match) {
         matchList.addMatch(match);
     }
@@ -69,8 +72,16 @@ public class MatchListManager {
             matchList.addMatch(match);
         }
     }
+*/
 
 
+    /**Given a HashSet with ID numbers of players, this function sorts
+     * the set by the number (position) of the player.
+     * This tool is useful to show the list or to print it.
+     * @param players The Hashset wit the playersID.
+     * @param playerList The list of the players.
+     * @return an ArrayList sorted ascending.
+     */
     public static ArrayList<Integer> sortedMatchListByNumber(HashSet<Integer> players, PlayerList playerList) {
         ArrayList<Integer> tempSortedPlayersList = new ArrayList(players);
         Collections.sort(tempSortedPlayersList, (P1, P2) -> {
@@ -83,6 +94,13 @@ public class MatchListManager {
         return tempSortedPlayersList;
     }
 
+    /**
+     * Create a String with all the information in a specific match.
+     * After creation, the string is saved as a text file, with the file named with the unique match ID,
+     * and the extension as .txt.
+     * @param match the match to be converted.
+     * @param playerList the complete list of all players in the system.
+     */
     public static void createText(Match match, PlayerList playerList) {
 
         String title = "\t\tVia Club vs " + match.getOpponent() + "\n\n";
@@ -117,6 +135,13 @@ public class MatchListManager {
         }
     }
 
+    /**
+     * Create a String with all the information in a specific match.
+     * The string also includes tags and XML format. After creation, the string is saved as a xml file,
+     * with the file named with the unique match ID and the extension as .xml
+     * @param match the match to be converted.
+     * @param playerList the complete list of all players in the system.
+     */
     public static void createXML(Match match, PlayerList playerList) {
         String title = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n" +
                         "<match>" + "\n";

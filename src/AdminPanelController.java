@@ -282,7 +282,7 @@ public class AdminPanelController {
 
     private void deleteMatch(Match match){
         if (AlertControl.confirmationBox("You are deleting the match selected do you want to continue?", "Delete")) {
-            MatchListManager.deleteMatch(matchList, match);
+            matchList.deleteMatch(match);
             changesMade();
             updateMatchTable();
         }
@@ -384,7 +384,7 @@ public class AdminPanelController {
         if (AlertControl.confirmationBox("The player will be eliminated from the system " +
                 "even if he/she is on the list for future or past matches. \n \n" +
                 "Do you wish to continue?\n", "Delete")) {
-            int playerIndex = playerList.getPosition(player);
+            int playerIndex = playerList.getPlayerID(player);
             playerList.deletePlayer(player);
             matchList.updateBenchAndPitchArrays(playerIndex);
             changesMade();

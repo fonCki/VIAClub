@@ -6,37 +6,35 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
 
+/**
+ * This class is a toolbox containing different methods related to players and player lists.
+ * to work with files. all the methods are static.
+ * @author @alfonsoridao
+ * @version 3.1
+ */
+
 public class PlayerListManager {
 
+    /**
+     * this method access to the file, and return the Object playerList.
+     * @return the list of players in playerList format.
+     */
     public static PlayerList getPlayerListFromFile() {
         PlayerList playerList = new PlayerList();
         try {
-            playerList = (PlayerList) MyFileHandler.readFromBinaryFile("model.Player-list.via");
+            playerList = (PlayerList) MyFileHandler.readFromBinaryFile("player-list.via");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-/*
-        finally {
-            HashSet<String> example= new HashSet<String>(4);
-            example.add("Goalkeeper");
-            example.add("Defender");
-            playerList = new model.PlayerList();
-            model.Player playerOne = new model.Player("Hugo", "Broglio", LocalDate.now(), 9, example, "Suspended");
-            model.Player playerTwo = new model.Player("Mariano", "Cola", LocalDate.now(), 10, example, "Available");
-            model.Player playerThree = new model.Player("Jose", "Pasuccho", LocalDate.now(), 5,example, "Injured");
-            playerList.add(playerOne);
-            playerList.add(playerTwo);
-            playerList.add(playerThree);
-            System.out.println(playerList);
-
-        }
-
- */
         return playerList;
     }
 
+    /**
+     * Given the player list, this method call MyFileHandler to write the information in the file.
+     * @param playerList the list of players.
+     */
     public static void writeInFile(PlayerList playerList) {
         try {
             MyFileHandler.writeToBinaryFile("model.Player-list.via", playerList);
@@ -46,6 +44,7 @@ public class PlayerListManager {
 
     }
 
+    /*
     public static void savePlayer(PlayerList playerlist, Player player, int uid) {
         if (uid < playerlist.getSize()) {
             playerlist.updatePlayerList(uid, player);
@@ -60,13 +59,13 @@ public class PlayerListManager {
             playerList.getPlayerByPlayerId(i).resetTimeNoStop();
         }
     }
-
+*/
     public static void updateTimeNoStop(Match match, PlayerList playerList, MatchList matchList) {
         updateTimeNoStop(match.getDate(), playerList, matchList);
     }
 
     public static void updateTimeNoStop(LocalDate date, PlayerList playerList, MatchList matchList) {
-        PlayerListManager.clearTimesPlayed(playerList);
+        playerList.clearTimesPlayer();
         MatchList sortedMatchList = matchList.sortedMatchListByDate();
         int matchIndex = 0;
         while (matchIndex < sortedMatchList.getSize() &&

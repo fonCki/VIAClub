@@ -57,7 +57,7 @@ public class PlayerControler {
                 number.setValue(player.getNumber());
                 int actualAge = Period.between(dateOfBirthField.getValue(), LocalDate.now()).getYears();
                 age.setText(actualAge +" y/o");
-                playerID = playerList.getPosition(player);
+                playerID = playerList.getPlayerID(player);
 
                     if (player.getPosition().contains("Goalkeeper")) goalkeeper.setSelected(true);
                     if (player.getPosition().contains("Defender")) defender.setSelected(true);
@@ -127,7 +127,7 @@ public class PlayerControler {
                 player.systemStatus.setStatus(selectedToggle.getText());
 
                 ///////
-                PlayerListManager.savePlayer(playerList, player, playerID);
+                playerList.updatePlayerList(playerID, player);
                 Stage stage = (Stage) save.getScene().getWindow();
                 stage.close();
 
