@@ -2,7 +2,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import model.Match;
-import model.MatchListManager;
 import model.PlayerList;
 
 import java.time.format.DateTimeFormatter;

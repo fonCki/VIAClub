@@ -56,8 +56,7 @@ public class MatchController {
      * Initialize the two tables, pitch, and bench as empty.
      */
     public void initialize() {
-       // this.playerList = model.PlayerListManager.getPlayerListFromFile();
-        //Inicio las columnas)
+
         if (numberPitch != null) { //Change This
             namePitch.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
             lastNamePitch.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
@@ -65,19 +64,15 @@ public class MatchController {
             numberPitch.setCellValueFactory(new PropertyValueFactory<Player, Integer>("number"));
             playersPitch.getItems().clear();
             playersBench.getItems().clear();
-        } else {
-            namePitch = new TableColumn<>();
         }
 
-        if (numberBench != null) { // CVAMBIARRR
+        if (numberBench != null) {
             nameBench.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
             lastNameBench.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
             positionBench.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
             numberBench.setCellValueFactory(new PropertyValueFactory<Player, Integer>("number"));
             playersBench.getItems().clear();
             playersBench.getItems().clear();
-        } else {
-            nameBench = new TableColumn<>();
         }
     }
 
@@ -233,6 +228,7 @@ public class MatchController {
 
             thirdStage.setTitle("Players Control");
             thirdStage.setScene(new Scene(root, 1024, 600));
+            thirdStage.setResizable(false);
 
             //Change the modality of the fist main to disable
             Stage  secondStage= (Stage) mainAnchorPane.getScene().getWindow(); // I get the first stage.
@@ -244,13 +240,8 @@ public class MatchController {
             thirdStage.showAndWait();
             mainAnchorPane.setDisable(false);
             updateTables();
-
-
         }
-
     }
-
-
 }
 
 

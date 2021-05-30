@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Player;
 import model.PlayerList;
-import model.PlayerListManager;
+import model.ControlManager;
 import utils.AlertControl;
 
 import java.time.LocalDate;
@@ -153,7 +153,6 @@ public class PlayerController {
                 stage.close();
 
             }
-
         }
     }
 }

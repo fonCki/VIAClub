@@ -30,21 +30,6 @@ public class Player implements Serializable {
         this.playerID = playerID;
         systemStatus = new SystemStatus();
     }
-/*
-    public Player(int playerId, String name, String lastName, LocalDate dateOfBirth, int number, HashSet<String> position, String status) {
-        this.systemStatus = new SystemStatus(status);
-        this.playerId = playerId;
-        this.name = name;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.number = number;
-        this.position = position;
-        this.status = status;
-        this.timesNoStop = 0;
-    }
-
-
- */
 
     /**
      * Getting the Unique PlayerID.

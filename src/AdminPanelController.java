@@ -18,7 +18,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
 import utils.AlertControl;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -140,9 +139,9 @@ public class AdminPanelController {
      * and set the visibility of the panels. The Home panel is the starter.
      */
     public void initialize(){
-        searchBox.setVisible(false); // DELETE BOX, OR MAKE IT WORK!!!!
-        this.playerList = PlayerListManager.getPlayerListFromFile();
-        this.matchList = MatchListManager.getMatchListFromFile(); // Get the data from the file
+        searchBox.setVisible(false); // Version 3.2 ???
+        this.playerList = ControlManager.getPlayerListFromFile();
+        this.matchList = ControlManager.getMatchListFromFile(); // Get the data from the file
         matchList.updateRelation(playerList);
         homePane.setVisible(true);
         startHomePane();
@@ -150,7 +149,6 @@ public class AdminPanelController {
         playersPane.setVisible(false);
         initMenu();
     }
-
 
     /**
      * This handle event activates or deactivates the differents three pannels and their options.
@@ -174,7 +172,6 @@ public class AdminPanelController {
             startPlayersPane();
         }
     }
-
 
 
 
@@ -235,7 +232,7 @@ public class AdminPanelController {
         ////////////////////////////////
 
         // Start the new Stage
-        secondStage.setTitle("model.Match");
+        secondStage.setTitle("Match");
         secondStage.setScene(new Scene(root, 500, 600));
         ///////////////////////
 
@@ -243,13 +240,13 @@ public class AdminPanelController {
         Stage fistStage = (Stage) mainAnchorPane.getScene().getWindow(); // I get the first stage.
         secondStage.initOwner(fistStage);
         secondStage.initModality(Modality.WINDOW_MODAL);
+        secondStage.setResizable(false);
         mainAnchorPane.setDisable(true);
         ///////////////////////////////////////////////////
         secondStage.showAndWait();
 
         //Once the second stage was closed
         mainAnchorPane.setDisable(false);
-
 
     }
 
@@ -273,7 +270,6 @@ public class AdminPanelController {
      */
     public void actionMatch(Match match, String action) {
         changesMade();
-
         //Create the new Stage match
         Stage secondStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -292,8 +288,9 @@ public class AdminPanelController {
         ////////////////////////////////
 
         // Start the new Stage
-        secondStage.setTitle("model.Match");
+        secondStage.setTitle("Match");
         secondStage.setScene(new Scene(root, 724, 600));
+        secondStage.setResizable(false);
         ///////////////////////
 
         //Change the modality of the fist main to disable
@@ -303,16 +300,6 @@ public class AdminPanelController {
         mainAnchorPane.setDisable(true);
         ///////////////////////////////////////////////////
 
-
-        ////When someone close the window
-        /*
-            secondStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent windowEvent) {
-                    anchorPane.setDisable(false);
-                }
-            });
-        */
         secondStage.showAndWait();
 
         //Once the second stage was closed
@@ -327,7 +314,7 @@ public class AdminPanelController {
      * stage actionMatch(match, action) with the action
      * @param e the button clicked, could be edit or add.
      */
-    public void actionMatch(ActionEvent e) throws IOException {
+    public void actionMatch(ActionEvent e)  {
         String action = (e.getSource() == editMatch) ? "edit" : "add"; // Recognise the action
         Match match = matchTable.getSelectionModel().getSelectedItem();
         System.out.println(match + "1");
@@ -367,7 +354,7 @@ public class AdminPanelController {
 
         //Players table
         //Players data columns
-        if (this.name != null) { //CAMBIAR ESTO O VER PORQUE PASA!@!!
+        if (this.name != null) {
             name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
             lastName.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
             number.setCellValueFactory(new PropertyValueFactory<Player, Integer>("number"));
@@ -419,8 +406,9 @@ public class AdminPanelController {
         //////////////////////////////////
 
         // Start the new Stage
-        secondStage.setTitle("model.Player");
+        secondStage.setTitle("Player");
         secondStage.setScene(new Scene(root, 400, 600));
+        secondStage.setResizable(false);
         ///////////////////////
 
         //Change the modality of the fist main to disable
@@ -443,7 +431,7 @@ public class AdminPanelController {
      * stage actionPlayer(player, action) with the action
      * @param e the button clicked, could be edit or add.
      */
-    public void actionPlayer(ActionEvent e) throws IOException {
+    public void actionPlayer(ActionEvent e) {
         String action = (e.getSource() == editPlayer) ? "edit" : "add"; // Recognise the action
         Player player = playersTable.getSelectionModel().getSelectedItem();
         actionPlayer(player, action);
@@ -621,8 +609,8 @@ public class AdminPanelController {
      * And then disable the save option in the menu.
      */
     private void save() {
-        MatchListManager.writeInFile(matchList);
-        PlayerListManager.writeInFile(playerList);
+        ControlManager.writeMatchesInFile(matchList);
+        ControlManager.writePlayersInFile(playerList);
         changesMade = false;
         save.setDisable(!changesMade);
     }
@@ -648,7 +636,7 @@ public class AdminPanelController {
                 save();
             }
         }
-        Stage stage = (Stage) mainAnchorPane.getScene().getWindow(); // CAMBIAR URGENTE!
+        Stage stage = (Stage) mainAnchorPane.getScene().getWindow();
         stage.close();
     }
 
@@ -657,7 +645,7 @@ public class AdminPanelController {
      * @param e the event.
      */
     public void about(ActionEvent e) {
-        AlertControl.infoBox("'Curiosity about life in all of its aspects, I think, is still the secret of great creative people.' \n\nLeo Burnett", "About Life");
+        AlertControl.infoBox("Curiosity about life in all of its aspects, I think, is still the secret of great creative people.\n\nLeo Burnett", "About Life");
     }
 
     /**
@@ -665,7 +653,7 @@ public class AdminPanelController {
      */
     public void exportXML(){
         Match match = matchTable.getSelectionModel().getSelectedItem();
-        MatchListManager.createXML(match, playerList);
+        ControlManager.createXML(match, playerList);
     }
 
     /**
@@ -673,7 +661,7 @@ public class AdminPanelController {
      */
     public void exportText(){
         Match match = matchTable.getSelectionModel().getSelectedItem();
-        MatchListManager.createText(match, playerList);
+        ControlManager.createText(match, playerList);
     }
 
     /**
@@ -686,8 +674,8 @@ public class AdminPanelController {
                                                             "I hope you know what are you doing \n\n" +
                                                             "Would you like to continue?", "Confirmation")) {
             for (int i =0; i < matchList.getSize(); i++) {
-                MatchListManager.createXML(matchList.getMatchByIndex(i),playerList);
-                MatchListManager.createText(matchList.getMatchByIndex(i),playerList);
+                ControlManager.createXML(matchList.getMatchByIndex(i),playerList);
+                ControlManager.createText(matchList.getMatchByIndex(i),playerList);
         }
         }
     }
@@ -696,7 +684,7 @@ public class AdminPanelController {
      * this funtion launch createXMLForPage to share the information with the web users.
      */
     public void exportContentToWebPage(){
-        MatchListManager.createStringForPage(matchList);
+        ControlManager.createStringForWebsite(matchList);
     }
 
 

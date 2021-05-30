@@ -52,7 +52,6 @@ public class PlayerList implements Serializable {
         } else {
             playersList.add(player);
         }
-
     }
 
     /**
@@ -74,7 +73,6 @@ public class PlayerList implements Serializable {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -269,18 +267,6 @@ public class PlayerList implements Serializable {
         }
         return hashSetNeverPlayed;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Print a string with a header to be identified.

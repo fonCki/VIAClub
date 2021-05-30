@@ -1,22 +1,20 @@
 package model;
 import utils.MyFileHandler;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 
 /**
- * This class is a toolbox containing different methods related to match and match lists.
+ * This class is a toolbox containing different methods related to matchList and playerList
  * to work with files. all the methods are static.
  * @author @alfonsoridao
  * @version 3.1
  */
 
-public class MatchListManager {
+public class ControlManager {
 
     /**
      * this method access to the file, and return the Object MatchList.
@@ -38,9 +36,38 @@ public class MatchListManager {
      * Given the match list, this method call MyFileHandler to write the information in the file.
      * @param matchList the list of matches.
      */
-    public static void writeInFile(MatchList matchList) {
+    public static void writeMatchesInFile(MatchList matchList) {
         try {
             MyFileHandler.writeToBinaryFile("match-List.via", matchList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * this method access to the file, and return the Object playerList.
+     * @return the list of players in playerList format.
+     */
+    public static PlayerList getPlayerListFromFile() {
+        PlayerList playerList = new PlayerList();
+        try {
+            playerList = (PlayerList) MyFileHandler.readFromBinaryFile("player-list.via");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return playerList;
+    }
+
+    /**
+     * Given the player list, this method call MyFileHandler to write the information in the file.
+     * @param playerList the list of players.
+     */
+    public static void writePlayersInFile(PlayerList playerList) {
+        try {
+            MyFileHandler.writeToBinaryFile("player-list.via", playerList);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -142,7 +169,7 @@ public class MatchListManager {
      * If the file existed previously, this action would replace the information.
      * @param matchList the match list to be converted.
      */
-    public static void createStringForPage(MatchList matchList){
+    public static void createStringForWebsite(MatchList matchList){
        String list = "";
         MatchList sortedMatchList = matchList.sortedMatchListByDate();
         for (int i=0; i< sortedMatchList.getSize(); i++) {

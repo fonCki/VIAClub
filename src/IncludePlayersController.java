@@ -98,8 +98,6 @@ public class IncludePlayersController {
             playedAll.setCellValueFactory(new PropertyValueFactory<Player, Integer>("timesNoStop"));
             statusAll.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             tableFullPlayers.getItems().clear();
-        } else {
-            nameAll = new TableColumn<>();
         }
 
         if (namePitch != null) {
@@ -109,8 +107,6 @@ public class IncludePlayersController {
             playedPitch.setCellValueFactory(new PropertyValueFactory<Player, Integer>("timesNoStop"));
             statusPitch.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             tablePlayersPitch.getItems().clear();
-        } else {
-            namePitch = new TableColumn<>();
         }
 
         if (nameBench != null) {
@@ -120,9 +116,8 @@ public class IncludePlayersController {
             playedBench.setCellValueFactory(new PropertyValueFactory<Player, Integer>("timesNoStop"));
             statusBench.setCellValueFactory(new PropertyValueFactory<Player, String>("status"));
             tablePlayersBench.getItems().clear();
-        } else {
-            nameBench = new TableColumn<>();
         }
+
         addPitch.disableProperty().bind(Bindings.isEmpty(tableFullPlayers.getSelectionModel().getSelectedItems())); //
         removePitch.disableProperty().bind(Bindings.isEmpty(tablePlayersPitch.getSelectionModel().getSelectedItems())); //
         addBench.disableProperty().bind(Bindings.isEmpty(tableFullPlayers.getSelectionModel().getSelectedItems())); //
@@ -147,7 +142,7 @@ public class IncludePlayersController {
             benchPlayers = match.getPlayersBench();
         }
 
-        ///Differents options depends the kind of match///
+        ///Different options depends the kind of match///
         if (match.getKind().equals("Cup") || match.getKind().equals("League")) {
             for (int i = 0; i < playerList.getSize(); i++) {
                 if (playerList.getPlayerByPlayerId(i).systemStatus.isAvailable()) {
@@ -225,7 +220,6 @@ public class IncludePlayersController {
         pitchPlayers.remove(player.getPlayerId());
         availablePlayers.add(player.getPlayerId());
         updateTables();
-
     }
 
     /**
@@ -238,7 +232,6 @@ public class IncludePlayersController {
         benchPlayers.remove(player.getPlayerId());
         availablePlayers.add(player.getPlayerId());
         updateTables();
-
     }
 
     /**

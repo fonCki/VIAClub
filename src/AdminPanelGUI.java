@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * This class initializes the main stage.
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
     public void start(Stage primaryStage) throws Exception{
             Parent root = FXMLLoader.load(getClass().getResource("AdminPanel.fxml"));
             primaryStage.setScene(new Scene(root, 1024, 627));
+            primaryStage.setResizable(false);
             primaryStage.show();
         }
     }
