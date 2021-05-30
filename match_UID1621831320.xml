@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<match>
+	<opponent>River Plate</opponent>
+	<date>2021-05-08</date>
+	<place>Monumental</place>
+	<kind>League</kind>
+	<players>
+		<pitchPlayer>
+			<number>8</number>
+			<name>Carlos</name>
+			<lastName>Tevez</lastName>
+			<position>Midfielder</position>
+		</pitchPlayer>
+		<pitchPlayer>
+			<number>10</number>
+			<name>Leonel</name>
+			<lastName>Messi</lastName>
+			<position>Forward</position>
+		</pitchPlayer>
+		<benchPlayer>
+			<number>7</number>
+			<name>Mauro</name>
+			<lastName>Camoranessi</lastName>
+			<position>Defender</position>
+		</benchPlayer>
+	</players>
+</match>

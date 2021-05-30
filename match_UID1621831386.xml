@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<match>
+	<opponent>Barcelonna</opponent>
+	<date>2021-06-05</date>
+	<place>Via Stadium</place>
+	<kind>League</kind>
+	<players>
+		<pitchPlayer>
+			<number>10</number>
+			<name>Leonel</name>
+			<lastName>Messi</lastName>
+			<position>Forward</position>
+		</pitchPlayer>
+	</players>
+</match>

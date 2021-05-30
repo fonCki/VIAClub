@@ -28,6 +28,13 @@ import java.util.HashSet;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+/**
+ * This class is the controller of the Main Stage of the system.
+ * includes the control to the left Admin Panel and the three panels (Home, Matches, and Players)
+ * @author @alfonsoridao
+ * @version 3.1
+ */
+
 public class AdminPanelController {
 
     @FXML private AnchorPane mainAnchorPane; // The root pane
@@ -108,20 +115,35 @@ public class AdminPanelController {
 
     /////////////////////////INITIALIZE//////////////////////////////////////
 
+
+    /**
+     * Suppose any change is made in the list.
+     * This method changes the status to a variable and
+     * gives the option to the user to save the changes.
+     */
     private void changesMade() {
         changesMade = true;
         save.setDisable(!changesMade);
     }
 
+
+    /**
+     * initialize the menu options to available/disable.
+     */
     private void initMenu() {
         save.setDisable(!changesMade);
         exportSelected.setDisable(true);
     }
 
+    /**
+     * Initialize the GUI, charge the information from the file,
+     * and set the visibility of the panels. The Home panel is the starter.
+     */
     public void initialize(){
         searchBox.setVisible(false); // DELETE BOX, OR MAKE IT WORK!!!!
         this.playerList = PlayerListManager.getPlayerListFromFile();
         this.matchList = MatchListManager.getMatchListFromFile(); // Get the data from the file
+        matchList.updateRelation(playerList);
         homePane.setVisible(true);
         startHomePane();
         matchesPane.setVisible(false);
@@ -129,8 +151,11 @@ public class AdminPanelController {
         initMenu();
     }
 
-    //First Options available
 
+    /**
+     * This handle event activates or deactivates the differents three pannels and their options.
+     * @param e the button clicked.
+     */
     public void handleEvent(ActionEvent e) {
         if (e.getSource() == homeButtonAdmin) {
             homePane.setVisible(true);
@@ -154,6 +179,10 @@ public class AdminPanelController {
 
 
     /////////////////////////////////////////////MATCH FUNCTIONS/////////////////////////////////////////////////
+
+    /**
+     * Initialize the match panel, the empty table, and the buttons.
+     */
     public void startMatchPane(){
 
         ///MATCH TAB DATA INITIALIZE//
@@ -174,11 +203,19 @@ public class AdminPanelController {
 
     }
 
+    /**
+     * Clear the table, and then reload with the information about the match.
+     */
     private void updateMatchTable() {
         matchTable.getItems().clear();
         matchTable.getItems().addAll(matchList.getMatchList());
     }
 
+    /**
+     * This method is called to visualize a match in the view mode.
+     * This means that open a new window with the current format.
+     * @param match the match to be viewed.
+     */
     private void viewMatch(Match match) {
 
         //Create the new Stage match
@@ -216,7 +253,11 @@ public class AdminPanelController {
 
     }
 
-
+    /**
+     * This action event control if the view button was selected, or double click made in the table,
+     * and shoot the view matchMethod(match).
+     * @param e the button clicked.
+     */
     public void viewMatch(ActionEvent e) {
         Match match = matchTable.getSelectionModel().getSelectedItem();
         if (match != null) {
@@ -224,6 +265,12 @@ public class AdminPanelController {
         }
     }
 
+    /**
+     * This action event is shooted when the "Add Match" button or "Edith Match" button is pressed.
+     * Start the new match stage.
+     * @param match the match to be modified. is Null if the option is "Add Match".
+     * @param action the action to realize "add" or "edit".
+     */
     public void actionMatch(Match match, String action) {
         changesMade();
 
@@ -240,6 +287,7 @@ public class AdminPanelController {
 
         /// SHARING DATA /////////////////
         MatchController matchControl = fxmlLoader.getController();
+        System.out.println(matchControl);
         matchControl.transferData(match, matchList, action, playerList); // share the selection, the whole match list, the action and the player list
         ////////////////////////////////
 
@@ -274,12 +322,22 @@ public class AdminPanelController {
 
     }
 
+    /**
+     * This action event control if the add button, or edit button was selected and shoot the match
+     * stage actionMatch(match, action) with the action
+     * @param e the button clicked, could be edit or add.
+     */
     public void actionMatch(ActionEvent e) throws IOException {
         String action = (e.getSource() == editMatch) ? "edit" : "add"; // Recognise the action
         Match match = matchTable.getSelectionModel().getSelectedItem();
+        System.out.println(match + "1");
         actionMatch(match, action);
     }
 
+    /**
+     * This method delete a selected match in the table.
+     * @param match the selected match
+     */
     private void deleteMatch(Match match){
         if (AlertControl.confirmationBox("You are deleting the match selected do you want to continue?", "Delete")) {
             matchList.deleteMatch(match);
@@ -287,6 +345,11 @@ public class AdminPanelController {
             updateMatchTable();
         }
     }
+
+    /**
+     * This method is shooted once the delete button is pressed after a match is selected in the table.
+     * @param e the button pressed.
+     */
     public void deleteMatch(ActionEvent e) {
         deleteMatch(matchTable.getSelectionModel().getSelectedItem());
     }
@@ -296,6 +359,9 @@ public class AdminPanelController {
 
 ////////////////////////////////////////////PLAYERS FUNCTIONS/////////////////////////////////////////////////
 
+    /**
+     * Initialize the players panel, the empty table, and the buttons.
+     */
     public void startPlayersPane(){
         //PLAYERS TAB DATA INITIALIZE//
 
@@ -316,6 +382,9 @@ public class AdminPanelController {
         /////////////////////////////////////////////////////////////////////////
     }
 
+    /**
+     * Clear the table, and then reload with the information about the players.
+     */
     private void updatePlayersTable() {
         playersTable.getItems().clear();
         for (Player player: playerList.getPlayersList()) {
@@ -324,9 +393,15 @@ public class AdminPanelController {
         }
     }
 
+    /**
+     * This action event is shooted when the "Add Player" button or "Edith Player" button is pressed,
+     * or when double click is made on the table.
+     * Start the new player stage.
+     * @param player the match to be modified. is Null if the option is "Add Match".
+     * @param action the action to realize "add" or "edit".
+     */
     private void actionPlayer(Player player, String action) {
         changesMade();
-
         //Create the new Stage player
         Stage secondStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -339,7 +414,7 @@ public class AdminPanelController {
         /////////////////////////////////
 
         /// SHARING DATA (In this case always sharing data. if is nothing selected too, in that case I can get the playerList in the second stage)///
-        PlayerControler playControl = fxmlLoader.getController();
+        PlayerController playControl = fxmlLoader.getController();
         playControl.transferData(player, playerList, action); // share the selection, the whole player list, and the action
         //////////////////////////////////
 
@@ -355,24 +430,19 @@ public class AdminPanelController {
         mainAnchorPane.setDisable(true);
         ///////////////////////////////////////////////////
 
-        ////When someone close the window
-        /*
-            secondStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent windowEvent) {
-                    anchorPane.setDisable(false);
-                }
-            });
-        */
         secondStage.showAndWait();
 
         //Once the second stage was closed
         updatePlayersTable();
         startHomePane();
         mainAnchorPane.setDisable(false);
-
     }
 
+    /**
+     * This action event control if the add button, or edit button was selected and shoot the player
+     * stage actionPlayer(player, action) with the action
+     * @param e the button clicked, could be edit or add.
+     */
     public void actionPlayer(ActionEvent e) throws IOException {
         String action = (e.getSource() == editPlayer) ? "edit" : "add"; // Recognise the action
         Player player = playersTable.getSelectionModel().getSelectedItem();
@@ -380,6 +450,10 @@ public class AdminPanelController {
     }
 
 
+    /**
+     * This method delete a selected player in the table.
+     * @param player the selected Player
+     */
     public void deletePlayer(Player player) {
         if (AlertControl.confirmationBox("The player will be eliminated from the system " +
                 "even if he/she is on the list for future or past matches. \n \n" +
@@ -393,6 +467,10 @@ public class AdminPanelController {
 
     }
 
+    /**
+     * This method is shooted once the delete button is pressed after a player is selected in the table.
+     * @param e the button pressed.
+     */
     public void deletePlayer(ActionEvent e) {
         deletePlayer(playersTable.getSelectionModel().getSelectedItem());
     }
@@ -401,8 +479,12 @@ public class AdminPanelController {
 
     ////////////////////////////////////////////HOME FUNCTIONS/////////////////////////////////////////////////
 
+    /**
+     * This method initializes the Home Panel. This one includes a welcome with the day and eight different cards.
+     * Each card only appears if there is some important information to show about the players and matches.
+     */
     public void startHomePane() {
-        //////////////SET WELCOME MESSAGE//////////
+        ///////////////SET WELCOME MESSAGE////////////
         int hourNow = LocalDateTime.now().getHour();
         if (hourNow < 10) {
             regards.setText("God Morgen");
@@ -411,7 +493,8 @@ public class AdminPanelController {
         } else {
             regards.setText("God Dag");
         }
-        //////////////SET DATE//////////
+
+        ///////////////////SET DATE//////////////////
         today.setText(LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + ", ");
 
         //////////////SET DAYS TO NEXT MATCH//////////
@@ -424,11 +507,11 @@ public class AdminPanelController {
             daysNextMatch.setText(DAYS.between(LocalDate.now(), matchList.nextMatch().getDate()) + "");
         }
 
-        //////////////SET DAYS TO NEXT MATCH//////////
+        //////////////SET NUMBERS OF PLAYERS IN THE SYSTEM//////////
         playersSystem.setText(playerList.getNumberOfPlayers() + "");
 
         //////////////SET DAYS PLAYER WITHOUT REST//////////
-        Player mostPlayed = PlayerListManager.mostPlayedPlayer(playerList, matchList);
+        Player mostPlayed = playerList.mostPlayedPlayer(matchList);
         if (mostPlayed == null || mostPlayed.getTimesNoStop() == 0) {
             restingCard.setManaged(false);
             restingCard.setVisible(false);
@@ -440,7 +523,7 @@ public class AdminPanelController {
         }
 
         //////////////SET PLAYERS DID NOT PLAY//////////
-        HashSet<Integer> hashSetNeverPlayed = PlayerListManager.neverPlayed(playerList, matchList);
+        HashSet<Integer> hashSetNeverPlayed = playerList.neverPlayed(matchList);
         if (hashSetNeverPlayed.isEmpty()) {
             neverPlayedCard.setVisible(false);
             neverPlayedCard.setManaged(false);
@@ -510,22 +593,33 @@ public class AdminPanelController {
             }
         }
 
-        //////////////SET TOTAL PLAYERS IN THE SYSTEM//////////
-        if (playerList.getNumberOfPlayers() == 0) {
+        //////////////SET TOTAL PLAYERS UNAVAILABLE//////////
+        int unavailablePlayers = 0;
+        for (int i=0; i < playerList.getSize(); i++) {
+            if (playerList.getPlayerByPlayerId(i).systemStatus.isUnavailable()) {
+                unavailablePlayers++;
+            }
+        }
+
+        if (unavailablePlayers == 0) {
             totalPlayersCard.setVisible(false);
             totalPlayersCard.setManaged(false);
         } else {
             totalPlayersCard.setVisible(true);
             totalPlayersCard.setManaged(true);
-            totalPlayers.setText(playerList.getNumberOfPlayers() + "");
+            totalPlayers.setText(unavailablePlayers + "");
         }
-    }
 
+    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////MENU FUNCTIONS////////////////////////////////////////////////////////
 
+    /**
+     * This function re-writes both files with the new information.
+     * And then disable the save option in the menu.
+     */
     private void save() {
         MatchListManager.writeInFile(matchList);
         PlayerListManager.writeInFile(playerList);
@@ -534,10 +628,19 @@ public class AdminPanelController {
     }
 
 
+    /**
+     * action handler when the save menu is selected. Shoot the save() function.
+     * @param e the event made
+     */
     public void write(ActionEvent e) {
         save();
     }
 
+    /**
+     * Close the program. Not before verify if there was any change made,
+     * and as if we want to save the changes.
+     * @param e the event made
+     */
     public void quit(ActionEvent e) {
         if (changesMade) {
             if(AlertControl.confirmationBox("Looks like you made some changes\n" +
@@ -549,20 +652,34 @@ public class AdminPanelController {
         stage.close();
     }
 
+    /**
+     *This event is open a new information box with the "about" information.
+     * @param e the event.
+     */
     public void about(ActionEvent e) {
         AlertControl.infoBox("'Curiosity about life in all of its aspects, I think, is still the secret of great creative people.' \n\nLeo Burnett", "About Life");
     }
 
+    /**
+     * this event launch the createXML method, with the match selected in the table.
+     */
     public void exportXML(){
         Match match = matchTable.getSelectionModel().getSelectedItem();
         MatchListManager.createXML(match, playerList);
     }
 
+    /**
+     * this event launch the createText method, with the match selected in the table.
+     */
     public void exportText(){
         Match match = matchTable.getSelectionModel().getSelectedItem();
         MatchListManager.createText(match, playerList);
     }
 
+    /**
+     * This method, after the previous confirmation, shoot createXML
+     * and createTEXT to create both text and xml files for all the matches in the system.
+     */
     public void exportAll(){
         if (AlertControl.confirmationBox("You are exporting the whole list of matches in text and web format.\n" +
                                                             "Probably, many files will be modified.\n" +
@@ -575,10 +692,23 @@ public class AdminPanelController {
         }
     }
 
+    /**
+     * this funtion launch createXMLForPage to share the information with the web users.
+     */
+    public void exportContentToWebPage(){
+        MatchListManager.createStringForPage(matchList);
+    }
+
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////GESTURE FUNCTIONS////////////////////////////////////////////////////////
 
+    /**
+     * This method is called after press the "DELETE" key in any table and shoot the deleteMatch,
+     * or deletePlayer depends on which table was selected.
+     * @param keyEvent the key pressed
+     */
     public void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.DELETE) {
             Object selectedObject = ((TableView) keyEvent.getSource()).getSelectionModel().getSelectedItem();
@@ -592,6 +722,11 @@ public class AdminPanelController {
         }
     }
 
+    /**
+     * This method is called after double click any content in any table
+     * and shoot the View if the table is a match table, or edit if the table is a player table.
+     * @param mouseEvent the mouse event.
+     */
     public void mouseEvent(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 2) {
             Object selectedObject = ((TableView) mouseEvent.getSource()).getSelectionModel().getSelectedItem();

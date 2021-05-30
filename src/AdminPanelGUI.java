@@ -4,8 +4,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * This class initializes the main stage.
+ */
     public class AdminPanelGUI extends Application {
-        public void start(Stage primaryStage) throws Exception{
+
+    /**
+     * Launch the primary stage.
+     * @param primaryStage the main stage.
+     * @throws Exception
+     */
+    public void start(Stage primaryStage) throws Exception{
             Parent root = FXMLLoader.load(getClass().getResource("AdminPanel.fxml"));
             primaryStage.setScene(new Scene(root, 1024, 627));
             primaryStage.show();

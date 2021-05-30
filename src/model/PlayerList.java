@@ -1,7 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 /**
@@ -67,7 +69,12 @@ public class PlayerList implements Serializable {
      * @return the player as a Player Object.
      */
     public Player getPlayerByPlayerId(int playerID) {
-        return playersList.get(playerID);
+        if (playerID < playersList.size()) {
+            return playersList.get(playerID);
+        } else {
+            return null;
+        }
+
     }
 
     /**
@@ -88,6 +95,25 @@ public class PlayerList implements Serializable {
             }
         }
         return tempHashset;
+    }
+
+    /**
+     * Given a HashSet with ID numbers of players, this function sorts
+     * the set by the number (position) of the player.
+     * This tool is useful to show the list or to print it.
+     * @param players The Hashset wit the playersID.
+     * @return an ArrayList sorted ascending.
+     */
+    public ArrayList<Integer> sortedListPlayerByNumber(HashSet<Integer> players) {
+        ArrayList<Integer> tempSortedPlayersList = new ArrayList(players);
+        Collections.sort(tempSortedPlayersList, (P1, P2) -> {
+            if (getPlayerByPlayerId(P1).getNumber() < getPlayerByPlayerId(P2).getNumber() ) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+        return tempSortedPlayersList;
     }
 
 
@@ -146,6 +172,114 @@ public class PlayerList implements Serializable {
     public boolean isEmpty() {
         return (getNumberOfPlayers() < 1);
     }
+
+
+    /**
+     * This method count from a given match through the past,
+     * counting how many times a player plays without stopping.
+     * As soon as a player does not appear in the list, reset the player time to zero.
+     * @param match The match to be used as an initial count in the timeline.
+     * @param matchList the Match List.
+     */
+    public void updateTimeNoStop(Match match, MatchList matchList) {
+        updateTimeNoStop(match.getDate(), matchList);
+    }
+
+    /**
+     * The same method, but in this case, the start of the timeline
+     * is not a match but a given date.
+     * @param date A date.
+     * @param matchList the Match List.
+     */
+    public void updateTimeNoStop(LocalDate date, MatchList matchList) {
+        clearTimesPlayer();
+        MatchList sortedMatchList = matchList.sortedMatchListByDate();
+        int matchIndex = 0;
+        while (matchIndex < sortedMatchList.getSize() &&
+                sortedMatchList.getMatchByIndex(matchIndex).getDate().isBefore(date))  {
+            HashSet<Integer> playersPitch = sortedMatchList.getMatchByIndex(matchIndex).getPlayersPitch();
+            for (int i=0; i < getSize(); i++) {
+                if (playersPitch.contains(getPlayerByPlayerId(i).getPlayerId())) {
+                    getPlayerByPlayerId(i).addTimesNoStop();
+                } else {
+                    getPlayerByPlayerId(i).resetTimeNoStop();
+                }
+            }
+            matchIndex++;
+        }
+        for (int i=0; i < sortedMatchList.getSize(); i++) {
+            if (matchList.getMatchByIndex(i).getDate().isAfter(date)) {
+                for (Integer playerIndex: matchList.getMatchByIndex(i).getPlayersPitch()) {
+                    getPlayerByPlayerId(playerIndex).addTimesNoStop();
+                }
+            }
+        }
+    }
+
+
+
+    /**
+     * This method searches throughout the MatchList to all the past matches
+     * and returns the player who has played more consecutive times without rest.
+     * @param matchList the Match List.
+     * @return a Player Object
+     */
+    public Player mostPlayedPlayer(MatchList matchList) {
+        if (matchList == null || matchList.isEmpty()) {
+            return null;
+        } else {
+            updateTimeNoStop(LocalDate.now(), matchList);
+            Player mostPlayed;
+            if (isEmpty()) {
+                return null;
+            } else {
+                mostPlayed = getPlayerByPlayerId(0);
+                for (int i = 1; i < getSize(); i++) {
+                    if (!getPlayerByPlayerId(i).systemStatus.isDeleted()) {
+                        if (getPlayerByPlayerId(i).getTimesNoStop() > mostPlayed.getTimesNoStop()) {
+                            mostPlayed = getPlayerByPlayerId(i);
+                        }
+
+                    }
+                }
+            }
+            return mostPlayed;
+        }
+    }
+
+    /**
+     * This method returns a set with IDs of all the players who never have been on the pitch list in the past matches.
+     * @param matchList the Match List.
+     * @return a HashSet with all the playersID
+     */
+    public HashSet<Integer> neverPlayed(MatchList matchList) {
+        HashSet<Integer> allPlayersHashset = new HashSet<Integer>();
+        HashSet<Integer> hashSetNeverPlayed = new HashSet<Integer>();
+        for (int i = 0; i < getSize(); i++) {
+            allPlayersHashset.add(i);
+        }
+
+        for (int i = 0; i < matchList.getSize(); i++) {
+            allPlayersHashset.removeAll(matchList.getMatchByIndex(i).getPlayersPitch());
+        }
+        for (int playerID : allPlayersHashset) {
+            if (!getPlayerByPlayerId(playerID).systemStatus.isDeleted()) {
+                hashSetNeverPlayed.add(playerID);
+            }
+        }
+        return hashSetNeverPlayed;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**

@@ -1,3 +1,5 @@
+///////////////Menu/////////////////////////
+
 .parent {
     -fx-background-color: #fff;
 }
@@ -15,7 +17,10 @@
 }
 
 
-////////////////
+/////////////////////////////////////////////
+
+///////////////Starter Cards/////////////////////////
+
 .cards {
     -fx-background-color:  #FFB304;
     -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 1);
@@ -25,7 +30,7 @@
     -fx-background-color:  #eaa300;
 }
 
-
+/////////////////////////////////////////////
 
 
 .text-header {
@@ -45,8 +50,7 @@
 
 
 
-
-/*Table Handle*/
+///////////////Tables/////////////////////////
 
 .table-view{
 
@@ -78,7 +82,6 @@
 .table-players .column-header-background{
      -fx-background-color: #00A2D3;
 }
-
 
 
 .table-view .column-header, .table-view .filler {
@@ -116,14 +119,4 @@
     -fx-table-cell-border-color: transparent;
 
 }
-/*
-#tableMatches .column-header-background{
-                  -fx-background-color:   #77DD77;
-                  -fx-border-color: transparent transparent rgba(255,255,255,0.3) transparent;
-                  -fx-border-width: 1;
-                  -fx-background-insets: 0;
-              }
-
-
-*/
 

@@ -177,6 +177,22 @@ public class MatchList implements Serializable {
     }
 
     /**
+     * updateRelation is an initializer to check if the players' IDs
+     * inside the bench and pitch sets are in the playerList.
+     * If they are not founded, they are eliminated from the list.
+     * @param playerList The players List.
+     */
+    public  void updateRelation(PlayerList playerList) {
+        for (int i=0; i < getSize(); i++) {
+            for (int playerIndex: getMatchByIndex(i).getPlayersPitch()) {
+                if (playerList.getPlayerByPlayerId(playerIndex) == null) {
+                    updateBenchAndPitchArrays(playerIndex);
+                }
+            }
+        }
+    }
+
+    /**
      * This functions gives the number of "Friendly" matches in the list.
      * @return an integer with the numbers
      */

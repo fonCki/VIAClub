@@ -13,7 +13,14 @@ import java.time.Period;
 import java.util.HashSet;
 
 
-public class PlayerControler {
+/**
+ * This class is the controller for the Player stage and
+ * allows to create or edit any player
+ * @author @alfonsoridao
+ * @version 3.1.
+ */
+
+public class PlayerController {
     @FXML private Label uid;
     @FXML private TextField nameField;
     @FXML private TextField lastNameField;
@@ -36,11 +43,14 @@ public class PlayerControler {
     private int playerID;
 
 
-    public void initialize() {
-
-    }
-
-
+    /**
+     * Receiving the information from the AdminPanel, initialize the player.
+     * If the player is null, all the fields are blank and create a new player.
+     * Otherwise, the fields are completed with the player info.
+     * @param player the player to edit. if is null, is add a player.
+     * @param playerList the list of all the players.
+     * @param action an String. could be "edit" or "add".
+     */
     public void transferData(Player player, PlayerList playerList, String action) {
         this.playerList = playerList;
         HashSet<Integer> availableNumbers = playerList.getAvailableNumbers(); // Create an array of available numbers
@@ -87,6 +97,10 @@ public class PlayerControler {
         uid.setText("#ID:" + playerID);
     }
 
+    /**
+     * Action event to pressing the button cancel. close the player panel.
+     * @param e the action, and the button pressed.
+     */
     public void cancel(ActionEvent e) {
         if (e.getSource() == cancel) {
             Stage stage = (Stage) cancel.getScene().getWindow();
@@ -94,6 +108,13 @@ public class PlayerControler {
         }
     }
 
+
+    /**
+     * Action event to pressing the button save.
+     * Creates or modifies the player first and inserts it in the player list.
+     * Then closes the match panel.
+     * @param e the action, and the button pressed.
+     */
     public void save(ActionEvent e) {
 
         if (e.getSource() == save) {

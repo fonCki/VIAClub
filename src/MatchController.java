@@ -17,6 +17,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * This class is the controller for the Match stage and
+ * allows to create or edit any match.
+ * @author @alfonsoridao
+ * @version 3.1.
+ */
 
 public class MatchController {
     @FXML private AnchorPane mainAnchorPane;
@@ -45,6 +51,10 @@ public class MatchController {
     private Match match, newMatch;
     private PlayerList playerList;
 
+
+    /**
+     * Initialize the two tables, pitch, and bench as empty.
+     */
     public void initialize() {
        // this.playerList = model.PlayerListManager.getPlayerListFromFile();
         //Inicio las columnas)
@@ -71,6 +81,9 @@ public class MatchController {
         }
     }
 
+    /**
+     * Update both tables with the information in the sets (bench and pitch).
+     */
     public void updateTables() {
         playersPitch.getItems().clear();
         for (int playerId: match.getPlayersPitch()) {
@@ -83,6 +96,14 @@ public class MatchController {
         }
     }
 
+    /**
+     * Receiving the information from the AdminPanel, initialize the matchList, the playerList.
+     * If is an edit option, set all the field values according to the match information.
+     * @param match the match to edit. if is null, is create a Match.
+     * @param matchList the list of all the matches.
+     * @param action an String. could be "edit" or "add".
+     * @param playerList the list of players.
+     */
     public void transferData(Match match, MatchList matchList, String action, PlayerList playerList) {
         this.matchList = matchList;
         this.playerList = playerList;
@@ -113,6 +134,13 @@ public class MatchController {
         }
     }
 
+    /**
+     * This function would update the players on the bench and the players on the pitch,
+     * if the match was edited. This function also considers that if the kind of match was modified,
+     * the bench players' list could be affected.
+     * @param newMatch the new match to be recorded.
+     * @param oldMatch the match edited.
+     */
     private void updatePlayersMatch(Match newMatch, Match oldMatch) {
         newMatch.setPlayersPitch(oldMatch.getPlayersPitch());
         if (oldMatch.getPlayersBench().size() > newMatch.getMaxPlayersBench()) {
@@ -136,6 +164,11 @@ public class MatchController {
         }
     }
 
+    /**
+     * This function generates a new Match and then saves it to the match list.
+     * It could be an update or a new creation. Both options come through this method.
+     * @return true if the match was created or updated. false if there was no changes.
+     */
     private boolean createOrEditMatch() {
         if (opponent.getText() == "") {
             AlertControl.warningBox("You must insert an opponent", "Error");
@@ -157,6 +190,10 @@ public class MatchController {
         return false;
     }
 
+    /**
+     * Action event to pressing the button cancel. close the match panel.
+     * @param e the action, and the button pressed.
+     */
     public void cancel(ActionEvent e) {
         if (e.getSource() == cancel) {
             Stage stage = (Stage) cancel.getScene().getWindow();
@@ -164,6 +201,11 @@ public class MatchController {
         }
     }
 
+    /**
+     * Action event to pressing the button save. Creates or modifies
+     * the match first and then closes the match panel.
+     * @param e the action, and the button pressed.
+     */
     public void save(ActionEvent e) throws IOException {
         if (createOrEditMatch()) {
             Stage stage = (Stage) save.getScene().getWindow();
@@ -171,6 +213,12 @@ public class MatchController {
         }
     }
 
+    /**
+     * Action event to pressing the button add players. Open a new stage ListView
+     * tto add players in the match.
+     * @param e the action, and the button pressed.
+     * @throws IOException if the fxml file is not founded.
+     */
     public void addPlayers(ActionEvent e) throws IOException {
         if (createOrEditMatch()) {
 

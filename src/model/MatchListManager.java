@@ -3,11 +3,11 @@ import utils.MyFileHandler;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
+
 
 /**
  * This class is a toolbox containing different methods related to match and match lists.
@@ -40,58 +40,11 @@ public class MatchListManager {
      */
     public static void writeInFile(MatchList matchList) {
         try {
-            MyFileHandler.writeToBinaryFile("model.Match-List.via", matchList);
+            MyFileHandler.writeToBinaryFile("match-List.via", matchList);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-    }
-
-    /*
-    public static void addMatch(MatchList matchList, Match match) {
-        matchList.addMatch(match);
-    }
-
-
-    public static void deleteMatch(MatchList matchList, Match match) {
-        matchList.deleteMatch(match);
-    }
-
-    public static int getPosition(MatchList matchList, Match match) {
-        return matchList.getIndex(match);
-    }
-
-    public static int getNewPosition(MatchList matchList) {
-        return matchList.getSize();
-    }
-
-    public static void saveMatch(MatchList matchList, Match match, int id) {
-        if (id < matchList.getSize()) {
-            matchList.updateMatch(id, match);
-        } else {
-            matchList.addMatch(match);
-        }
-    }
-*/
-
-
-    /**Given a HashSet with ID numbers of players, this function sorts
-     * the set by the number (position) of the player.
-     * This tool is useful to show the list or to print it.
-     * @param players The Hashset wit the playersID.
-     * @param playerList The list of the players.
-     * @return an ArrayList sorted ascending.
-     */
-    public static ArrayList<Integer> sortedMatchListByNumber(HashSet<Integer> players, PlayerList playerList) {
-        ArrayList<Integer> tempSortedPlayersList = new ArrayList(players);
-        Collections.sort(tempSortedPlayersList, (P1, P2) -> {
-            if (playerList.getPlayerByPlayerId(P1).getNumber() < playerList.getPlayerByPlayerId(P2).getNumber() ) {
-                return -1;
-            } else {
-                return 1;
-            }
-        });
-        return tempSortedPlayersList;
     }
 
     /**
@@ -109,8 +62,8 @@ public class MatchListManager {
                       "\tKind: " + match.getKind() + "\n\n";
 
         String playersPitch = "Players in the pitch: \n\n";
-        ArrayList<Integer> sorted = sortedMatchListByNumber(match.getPlayersPitch(), playerList);
-        for (int playerIndex: sorted) {
+        ArrayList<Integer> sortedPitch = playerList.sortedListPlayerByNumber(match.getPlayersPitch());
+        for (int playerIndex: sortedPitch) {
             playersPitch += playerList.getPlayerByPlayerId(playerIndex).getNumber() + ")" +
                     playerList.getPlayerByPlayerId(playerIndex).getName() + " " +
                     playerList.getPlayerByPlayerId(playerIndex).getLastName() + ", " +
@@ -118,7 +71,7 @@ public class MatchListManager {
         }
 
         String playersBench = "\n\nPlayers in the bench: \n\n";
-        ArrayList<Integer> sortedBench = sortedMatchListByNumber(match.getPlayersBench(), playerList);
+        ArrayList<Integer> sortedBench = playerList.sortedListPlayerByNumber(match.getPlayersBench());
         for (int playerIndex: sortedBench) {
             playersBench += playerList.getPlayerByPlayerId(playerIndex).getNumber() + ")" +
                     playerList.getPlayerByPlayerId(playerIndex).getName() + " " +
@@ -151,8 +104,8 @@ public class MatchListManager {
                       "\t<kind>"+ match.getKind() +"</kind>" + "\n";
 
         String startPlayersPitch = "\t<players>\n";
-        ArrayList<Integer> sorted = sortedMatchListByNumber(match.getPlayersPitch(), playerList);
-        for (int playerIndex: sorted) {
+        ArrayList<Integer> sortedPitch = playerList.sortedListPlayerByNumber(match.getPlayersPitch());
+        for (int playerIndex: sortedPitch) {
             startPlayersPitch += "\t\t<pitchPlayer>\n" +
                     "\t\t\t<number>" + playerList.getPlayerByPlayerId(playerIndex).getNumber() + "</number>\n" +
                     "\t\t\t<name>" + playerList.getPlayerByPlayerId(playerIndex).getName() + "</name>\n" +
@@ -162,7 +115,7 @@ public class MatchListManager {
         }
 
         String startPlayersBench = "";
-        ArrayList<Integer> sortedBench = sortedMatchListByNumber(match.getPlayersBench(), playerList);
+        ArrayList<Integer> sortedBench = playerList.sortedListPlayerByNumber(match.getPlayersBench());
         for (int playerIndex: sortedBench) {
             startPlayersBench += "\t\t<benchPlayer>\n" +
                     "\t\t\t<number>" + playerList.getPlayerByPlayerId(playerIndex).getNumber() + "</number>\n" +
@@ -182,6 +135,32 @@ public class MatchListManager {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Create a String with all the matches in the system, in a Rows format, to be showed on the wePage
+     * If the file existed previously, this action would replace the information.
+     * @param matchList the match list to be converted.
+     */
+    public static void createStringForPage(MatchList matchList){
+       String list = "";
+        MatchList sortedMatchList = matchList.sortedMatchListByDate();
+        for (int i=0; i< sortedMatchList.getSize(); i++) {
+            list += "<tr>" + "\n" +
+                    "\t<th>" + (i+1) +"</th>" + "\n" +
+                    "\t<td>"+ sortedMatchList.getMatchByIndex(i).getOpponent() +"</td>" + "\n" +
+                    "\t<td>"+ sortedMatchList.getMatchByIndex(i).getDate() +"</td>" + "\n" +
+                    "\t<td>"+ sortedMatchList.getMatchByIndex(i).getPlace() +"</td>" + "\n" +
+                    "\t<td>"+sortedMatchList.getMatchByIndex(i).getKind() +"</td>" + "\n" +
+                    "</tr>" + "\n";
+        }
+        String fileName = "match_list.xml";
+        try {
+            MyFileHandler.writeToTextFile(fileName,list);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 

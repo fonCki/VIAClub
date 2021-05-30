@@ -129,8 +129,8 @@
             <items>
                   <Menu mnemonicParsing="false" text="New">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#actionMatch" text="model.Match" />
-                        <MenuItem mnemonicParsing="false" onAction="#actionPlayer" text="model.Player" />
+                      <MenuItem mnemonicParsing="false" onAction="#actionMatch" text="Match" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionPlayer" text="Player" />
                     </items>
                   </Menu>
                   <MenuItem fx:id="save" mnemonicParsing="false" onAction="#write" text="Save" />
@@ -147,6 +147,7 @@
                     </items>
                   </Menu>
                 <MenuItem mnemonicParsing="false" onAction="#exportAll" text="Export All" />
+                  <MenuItem mnemonicParsing="false" onAction="#exportContentToWebPage" text="Share Match List with WebPage" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -226,7 +227,7 @@
                                           <Font name="VIA Type Bold" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="daysNextMatch" text="45" textFill="#5c5f61">
+                                    <Label fx:id="daysNextMatch" text="[NN]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Regular" size="31.0" />
                                        </font>
@@ -243,7 +244,7 @@
                                           <Font name="VIA Type Bold" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="playersSystem" text="12" textFill="#5c5f61">
+                                    <Label fx:id="playersSystem" text="[NN]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Regular" size="31.0" />
                                        </font>
@@ -252,7 +253,7 @@
                               </VBox>
                               <VBox fx:id="restingCard" alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="100.0" prefWidth="135.0" styleClass="cards">
                                  <children>
-                                    <Text fill="#65696b" strokeType="OUTSIDE" strokeWidth="0.0" text="model.Player who needs to rest">
+                                    <Text fill="#65696b" strokeType="OUTSIDE" strokeWidth="0.0" text="Player who needs to rest">
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </VBox.margin>
@@ -260,7 +261,7 @@
                                           <Font name="VIA Type Bold" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="daysWithoutRest" text="222" textFill="#5c5f61">
+                                    <Label fx:id="daysWithoutRest" text="[NN]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Regular" size="31.0" />
                                        </font>
@@ -273,7 +274,7 @@
                                           <Insets left="10.0" right="10.0" top="10.0" />
                                        </VBox.margin>
                                     </Text>
-                                    <Label fx:id="playerNeedsRest" text="Leonel Messi" textFill="#5c5f61">
+                                    <Label fx:id="playerNeedsRest" text="[name lastName]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Bold" size="13.0" />
                                        </font>
@@ -287,7 +288,7 @@
                                  <children>
                                     <HBox>
                                        <children>
-                                          <Label fx:id="neverPlayedName" text="Leonel Messi" textFill="#5c5f61">
+                                          <Label fx:id="neverPlayedName" text="[name lastName]" textFill="#5c5f61">
                                              <font>
                                                 <Font name="VIA Type Bold" size="13.0" />
                                              </font>
@@ -302,7 +303,7 @@
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <Label fx:id="playersNeverPlayed" text="37" textFill="#5c5f61">
+                                    <Label fx:id="playersNeverPlayed" text="[NN]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Regular" size="31.0" />
                                        </font>
@@ -327,7 +328,7 @@
                                           <Font name="VIA Type Bold" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="totalMatchesPlayed" text="13" textFill="#5c5f61">
+                                    <Label fx:id="totalMatchesPlayed" text="[NN]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Regular" size="31.0" />
                                        </font>
@@ -344,7 +345,7 @@
                                           <Font name="VIA Type Bold" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="upcomingMatchesNumber" text="334" textFill="#5c5f61">
+                                    <Label fx:id="upcomingMatchesNumber" text="[NN]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Regular" size="31.0" />
                                        </font>
@@ -361,12 +362,12 @@
                                           <Font name="VIA Type Bold" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="kindOfMatchAvg" text="66%" textFill="#5c5f61">
+                                    <Label fx:id="kindOfMatchAvg" text="[NN%]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Regular" size="31.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="kindOfMatch" text="Friendly" textFill="#5c5f61">
+                                    <Label fx:id="kindOfMatch" text="[kind]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Bold" size="13.0" />
                                        </font>
@@ -378,7 +379,7 @@
                               </VBox>
                               <VBox fx:id="totalPlayersCard" alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="100.0" prefWidth="135.0" styleClass="cards">
                                  <children>
-                                    <Text fill="#65696b" strokeType="OUTSIDE" strokeWidth="0.0" text="Players in the system">
+                                    <Text fill="#65696b" strokeType="OUTSIDE" strokeWidth="0.0" text="Unavailable players ">
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </VBox.margin>
@@ -386,11 +387,19 @@
                                           <Font name="VIA Type Bold" size="14.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="totalPlayers" text="22" textFill="#5c5f61">
+                                    <Label fx:id="totalPlayers" text="[NN]" textFill="#5c5f61">
                                        <font>
                                           <Font name="VIA Type Regular" size="31.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#65696b" strokeType="OUTSIDE" strokeWidth="0.0" text="Suspended or Injured">
+                                       <font>
+                                          <Font name="VIA Type Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Text>
                                  </children>
                               </VBox>
                            </children>
@@ -432,7 +441,7 @@
                   </TableView>
                   <VBox layoutX="556.0" layoutY="31.0" prefHeight="482.0" prefWidth="160.0" AnchorPane.leftAnchor="556.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <JFXButton fx:id="addPlayer" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionPlayer" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #00A2D3 #00A2D3; -fx-background-radius: 0px;" text="Add model.Player" textFill="WHITE">
+                        <JFXButton fx:id="addPlayer" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionPlayer" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #00A2D3 #00A2D3; -fx-background-radius: 0px;" text="Add Player" textFill="WHITE">
                            <font>
                               <Font name="VIA Type Regular" size="14.0" />
                            </font>
@@ -517,12 +526,12 @@
                         <TableColumn fx:id="matchDate" text="Date" />
                         <TableColumn fx:id="opponent" prefWidth="148.0" text="Opponent" />
                         <TableColumn fx:id="place" prefWidth="150.0" text="Place" />
-                        <TableColumn fx:id="kind" prefWidth="150.0" text="Kind of model.Match" />
+                        <TableColumn fx:id="kind" prefWidth="150.0" text="Kind of Match" />
                      </columns>
                   </TableView>
                   <VBox layoutX="557.0" layoutY="26.0" prefHeight="482.0" prefWidth="160.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <JFXButton fx:id="addMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionMatch" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Add model.Match" textFill="WHITE">
+                        <JFXButton fx:id="addMatch" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#actionMatch" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #77DD77; -fx-background-radius: 0px;" text="Add Match" textFill="WHITE">
                            <font>
                               <Font name="VIA Type Regular" size="14.0" />
                            </font>

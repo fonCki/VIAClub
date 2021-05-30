@@ -12,6 +12,13 @@ import utils.AlertControl;
 
 import java.util.HashSet;
 
+/**
+ * This class is the controller for the includePlayers stage and
+ * allows to move to add or delete players to any match.
+ * @author @alfonsoridao
+ * @version 3.1.
+ */
+
 public class IncludePlayersController {
     @FXML private TableView tableFullPlayers;
     @FXML private TableView tablePlayersPitch;
@@ -51,6 +58,10 @@ public class IncludePlayersController {
     private HashSet<Integer> benchPlayers;
 
 
+    /**
+     * Updates the three tables. The players on the pitch,
+     * the players on the bench, and the available players to be selected.
+     */
     public void updateTables() {
 
         tableFullPlayers.getItems().clear();
@@ -76,6 +87,9 @@ public class IncludePlayersController {
     }
 
 
+    /**
+     * Initialize the three tables. And the buttons on the stage.
+     */
     public void initialize() {
         if (nameAll != null) {
             nameAll.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
@@ -116,6 +130,10 @@ public class IncludePlayersController {
 
     }
 
+    /**
+     * Initialize the three differents array. one with the total of players available.
+     * And the other two with the players on the pitch and the players on the bench.
+     */
     private void initArrayPlayers() {
         if (match.getPlayersPitch() == null) {
             pitchPlayers = new HashSet<Integer>(match.getMaxPlayersPitch());
@@ -130,7 +148,6 @@ public class IncludePlayersController {
         }
 
         ///Differents options depends the kind of match///
-        System.out.println(match.getKind() + "ESTE ESSSSS");
         if (match.getKind().equals("Cup") || match.getKind().equals("League")) {
             for (int i = 0; i < playerList.getSize(); i++) {
                 if (playerList.getPlayerByPlayerId(i).systemStatus.isAvailable()) {
@@ -151,14 +168,25 @@ public class IncludePlayersController {
 
     }
 
+    /**
+     * Received the data transferred from the Match Stage.
+     * @param match the match.
+     * @param playerList the list of players.
+     * @param matchList the list of matches.
+     */
     public void transferData(Match match, PlayerList playerList, MatchList matchList) {
         this.match = match;
         this.matchList = matchList;
         this.playerList = playerList;
-        PlayerListManager.updateTimeNoStop(match, playerList, matchList);
+        playerList.updateTimeNoStop(match, matchList);
         initArrayPlayers();
     }
 
+    /**
+     * Action event to be shooted after pressing the button to move from the whole list to the pitch list.
+     * Swipe the players in the sets.
+     * @param e the button pressed.
+     */
     public void AllMoveToPitch(ActionEvent e){
         if (match.getPlayersPitch().size() < match.getMaxPlayersPitch()) {
             Player player = (Player) tableFullPlayers.getSelectionModel().getSelectedItem();
@@ -170,6 +198,11 @@ public class IncludePlayersController {
         }
     }
 
+    /**
+     * Action event to be shooted after pressing the button to move from the whole list to the bench list.
+     * Swipe the players in the sets.
+     * @param e the button pressed.
+     */
     public void AllMoveToBench(ActionEvent e){
         if (match.getPlayersBench().size() < match.getMaxPlayersBench()) {
             Player player = (Player) tableFullPlayers.getSelectionModel().getSelectedItem();
@@ -182,6 +215,11 @@ public class IncludePlayersController {
 
     }
 
+    /**
+     * Action event to be shooted after pressing the button to move from the pitch list to the whole list.
+     * Swipe the players in the sets.
+     * @param e the button pressed.
+     */
     public void PitchMoveToAll(ActionEvent e){
         Player player = (Player) tablePlayersPitch.getSelectionModel().getSelectedItem();
         pitchPlayers.remove(player.getPlayerId());
@@ -190,6 +228,11 @@ public class IncludePlayersController {
 
     }
 
+    /**
+     * Action event to be shooted after pressing the button to move from the bench list to the whole list.
+     * Swipe the players in the sets.
+     * @param e the button pressed.
+     */
     public void BenchMoveToAll(ActionEvent e){
         Player player = (Player) tablePlayersBench.getSelectionModel().getSelectedItem();
         benchPlayers.remove(player.getPlayerId());
@@ -198,6 +241,10 @@ public class IncludePlayersController {
 
     }
 
+    /**
+     * close the stage.
+     * @param e the button pressed.
+     */
     public void done(ActionEvent e) {
         Stage stage = (Stage) done.getScene().getWindow();
         stage.close();
