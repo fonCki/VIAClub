@@ -12,7 +12,7 @@ import java.util.Iterator;
  */
 
 public class Player implements Serializable {
-    public SystemStatus systemStatus;
+
     private int playerID;
     private String name, lastName;
     private LocalDate dateOfBirth;
@@ -21,6 +21,11 @@ public class Player implements Serializable {
     private String status;
     private int timesNoStop;
 
+    /**
+     * SystemStatus allows to get follow the current status of the player.
+     * the methods inside this class make easy setting up the new system status.
+     */
+    public SystemStatus systemStatus;
     /**
      * One parameter constructor, the ID must be passed to create de player.
      * The plauerID is the position of the player in the playerList.
@@ -155,9 +160,15 @@ public class Player implements Serializable {
         return this.status;
     }
 
+    /**
+     * Setting the unique status of the player.
+     *it could be ([Available, Unavailable, Suspended, Injured]),  and is passed as an argument.
+     * @param status a String with the Status.
+     */
     public void setStatus(String status) {
         this.status = status;
     }
+
     /**Getting the time that the player has been playing without stop.
      * @return an int with the number.
      */

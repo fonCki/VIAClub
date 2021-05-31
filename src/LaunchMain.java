@@ -9,7 +9,7 @@ import javafx.application.Application;
 public class LaunchMain {
     /**
      * Starts the program.
-     * @param args
+     * @param args the arguments
      */
         public static void main(String[] args) {
             Application.launch(AdminPanelGUI.class);

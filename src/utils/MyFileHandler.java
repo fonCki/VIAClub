@@ -12,7 +12,7 @@ public class MyFileHandler {
     * It opens a new text file and rewrites the information. if the file does not exist, it is created.
     * @param fileName the name of the file
     * @param str the content in a text string
-    * @throws FileNotFoundException
+    * @throws FileNotFoundException file not found
     */
    public static void writeToTextFile(String fileName, String str) throws FileNotFoundException {
       PrintWriter writeToFile = null;
@@ -31,7 +31,7 @@ public class MyFileHandler {
     * It opens a new binary file and rewrites the information. if the file does not exist, it is created.
     * @param fileName the name of the file.
     * @param obj the object to write.
-    * @throws FileNotFoundException
+    * @throws FileNotFoundException file not found
     */
 
    public static void writeToBinaryFile(String fileName, Object obj) throws FileNotFoundException, IOException {
@@ -57,9 +57,9 @@ public class MyFileHandler {
     * Read the information from a Binary file, and return the object read.
     * @param fileName the name of the file
     * @return the information of the file, in a object.
-    * @throws FileNotFoundException
-    * @throws IOException
-    * @throws ClassNotFoundException
+    * @throws FileNotFoundException file not found
+    * @throws IOException In Out Error
+    * @throws ClassNotFoundException class not found.
     */
    public static Object readFromBinaryFile(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
       Object obj = null;

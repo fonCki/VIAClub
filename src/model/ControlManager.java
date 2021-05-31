@@ -181,7 +181,7 @@ public class ControlManager {
                     "\t<td>"+sortedMatchList.getMatchByIndex(i).getKind() +"</td>" + "\n" +
                     "</tr>" + "\n";
         }
-        String fileName = "match_list.xml";
+        String fileName = "\\tst\\match_list.xml";
         try {
             MyFileHandler.writeToTextFile(fileName,list);
         } catch (FileNotFoundException e) {

@@ -201,7 +201,7 @@ public class MatchController {
      * the match first and then closes the match panel.
      * @param e the action, and the button pressed.
      */
-    public void save(ActionEvent e) throws IOException {
+    public void save(ActionEvent e)  {
         if (createOrEditMatch()) {
             Stage stage = (Stage) save.getScene().getWindow();
             stage.close();

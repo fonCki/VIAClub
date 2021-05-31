@@ -13,7 +13,7 @@ import javafx.stage.StageStyle;
     /**
      * Launch the primary stage.
      * @param primaryStage the main stage.
-     * @throws Exception
+     * @throws Exception the panel is not found
      */
     public void start(Stage primaryStage) throws Exception{
             Parent root = FXMLLoader.load(getClass().getResource("AdminPanel.fxml"));

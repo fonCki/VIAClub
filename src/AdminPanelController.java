@@ -283,7 +283,6 @@ public class AdminPanelController {
 
         /// SHARING DATA /////////////////
         MatchController matchControl = fxmlLoader.getController();
-        System.out.println(matchControl);
         matchControl.transferData(match, matchList, action, playerList); // share the selection, the whole match list, the action and the player list
         ////////////////////////////////
 
@@ -317,7 +316,6 @@ public class AdminPanelController {
     public void actionMatch(ActionEvent e)  {
         String action = (e.getSource() == editMatch) ? "edit" : "add"; // Recognise the action
         Match match = matchTable.getSelectionModel().getSelectedItem();
-        System.out.println(match + "1");
         actionMatch(match, action);
     }
 
