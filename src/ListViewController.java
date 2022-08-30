@@ -3,7 +3,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import model.Match;
 import model.PlayerList;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;

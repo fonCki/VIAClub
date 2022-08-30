@@ -77,7 +77,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
                <children>
-                  <Text fill="#616161" strokeType="OUTSIDE" strokeWidth="0.0" text="Kind of model.Match:">
+                  <Text fill="#616161" strokeType="OUTSIDE" strokeWidth="0.0" text="Kind of Match:">
                      <font>
                         <Font name="VIA Type Regular" size="14.0" />
                      </font>

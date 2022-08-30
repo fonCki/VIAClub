@@ -7,7 +7,6 @@ import model.Player;
 import model.PlayerList;
 import model.ControlManager;
 import utils.AlertControl;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashSet;

@@ -385,6 +385,7 @@ public class AdminPanelController {
      * @param player the match to be modified. is Null if the option is "Add Match".
      * @param action the action to realize "add" or "edit".
      */
+
     private void actionPlayer(Player player, String action) {
         changesMade();
         //Create the new Stage player
@@ -434,12 +435,6 @@ public class AdminPanelController {
         Player player = playersTable.getSelectionModel().getSelectedItem();
         actionPlayer(player, action);
     }
-
-
-    /**
-     * This method delete a selected player in the table.
-     * @param player the selected Player
-     */
     public void deletePlayer(Player player) {
         if (AlertControl.confirmationBox("The player will be eliminated from the system " +
                 "even if he/she is on the list for future or past matches. \n \n" +
@@ -452,11 +447,6 @@ public class AdminPanelController {
         }
 
     }
-
-    /**
-     * This method is shooted once the delete button is pressed after a player is selected in the table.
-     * @param e the button pressed.
-     */
     public void deletePlayer(ActionEvent e) {
         deletePlayer(playersTable.getSelectionModel().getSelectedItem());
     }
